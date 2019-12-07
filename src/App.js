@@ -13,17 +13,19 @@ import { store, persistor } from './store';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Wrapper from './components/Wrapper';
+import ContentWrapper from './components/ContentWrapper';
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <Router history={history}>
-          <Navbar />
           <Wrapper>
-            <Routes />
+            <Navbar />
+            <ContentWrapper>
+              <Routes />
+            </ContentWrapper>
           </Wrapper>
-
           <Footer />
           <ToastContainer autoClose={3000} />
         </Router>
