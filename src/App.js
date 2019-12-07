@@ -10,14 +10,21 @@ import Routes from './routes';
 import history from './services/history';
 
 import { store, persistor } from './store';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Wrapper from './components/Wrapper';
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <Router history={history}>
-          <Routes />
+          <Navbar />
+          <Wrapper>
+            <Routes />
+          </Wrapper>
 
+          <Footer />
           <ToastContainer autoClose={3000} />
         </Router>
       </PersistGate>
