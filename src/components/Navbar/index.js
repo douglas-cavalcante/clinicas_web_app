@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // import { Container } from './styles';
 
@@ -36,21 +37,19 @@ export default function Navbar() {
               </a>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">
+              <Link to="" className="nav-link">
                 Contact
-              </a>
+              </Link>
             </li>
             <li className="nav-item dropdown">
-              <a
-                id="dropdownSubMenu1"
-                href="#"
+              <Link
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
                 className="nav-link dropdown-toggle"
               >
                 Dropdown
-              </a>
+              </Link>
               <ul
                 aria-labelledby="dropdownSubMenu1"
                 className="dropdown-menu border-0 shadow"
@@ -69,9 +68,8 @@ export default function Navbar() {
                 <li className="dropdown-divider"></li>
 
                 <li className="dropdown-submenu dropdown-hover">
-                  <a
+                  <Link
                     id="dropdownSubMenu2"
-                    href="#"
                     role="button"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -79,15 +77,15 @@ export default function Navbar() {
                     className="dropdown-item dropdown-toggle"
                   >
                     Hover for action
-                  </a>
+                  </Link>
                   <ul
                     aria-labelledby="dropdownSubMenu2"
                     className="dropdown-menu border-0 shadow"
                   >
                     <li>
-                      <a tabindex="-1" href="#" className="dropdown-item">
+                      <Link tabIndex="-1" href="#" className="dropdown-item">
                         level 2
-                      </a>
+                      </Link>
                     </li>
 
                     <li className="dropdown-submenu">
@@ -106,29 +104,13 @@ export default function Navbar() {
                         aria-labelledby="dropdownSubMenu3"
                         className="dropdown-menu border-0 shadow"
                       >
-                        <li>
-                          <a href="#" className="dropdown-item">
-                            3rd level
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" className="dropdown-item">
-                            3rd level
-                          </a>
-                        </li>
+                        <li></li>
+                        <li></li>
                       </ul>
                     </li>
 
-                    <li>
-                      <a href="#" className="dropdown-item">
-                        level 2
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="dropdown-item">
-                        level 2
-                      </a>
-                    </li>
+                    <li></li>
+                    <li></li>
                   </ul>
                 </li>
               </ul>

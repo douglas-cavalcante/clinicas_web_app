@@ -56,13 +56,14 @@ Input.propTypes = {
   onChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  mask: PropTypes.bool,
+  placeholder: PropTypes.string,
+  mask: PropTypes.string,
   handleOnBlur: PropTypes.func,
   error: PropTypes.string.isRequired,
 };
 
 Input.defaultProps = {
   mask: false,
+  placeholder: "",
   handleOnBlur: () => {},
 };

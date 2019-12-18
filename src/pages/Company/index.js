@@ -1,5 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import Axios from 'axios';
+
+import { MdLibraryBooks, MdHome, MdSettingsCell } from 'react-icons/md';
+import {
+  getCompanyRequest,
+  SaveCompanyRequest,
+} from '~/store/modules/company/actions';
 
 import Header from '~/components/Header';
 import { Card, CardHeader, CardBody, CardFooter } from '~/components/Card';
@@ -7,49 +15,18 @@ import Input from '~/components/Form/Input';
 import api from '~/services/api';
 import Row from '~/components/Bootstrap/Row';
 
-import { MdLibraryBooks, MdHome, MdSettingsCell } from 'react-icons/md';
 import Description from '~/components/Description';
-import Axios from 'axios';
 
 // import { Container } from './styles';
-
-import * as Yup from 'yup';
-
-const schema = Yup.object().shape({
-  cellphone: Yup.string().length(11, 'Formato de celular inválido'),
-  email: Yup.string().email('Email inválido'),
-});
-
 export default function Company() {
+  const dispatch = useDispatch();
+  const companyReducer = useSelector(state => state.company);
+
   const formik = useFormik({
-    initialValues: {
-      id: '',
-      name: '',
-      company_name: '',
-      cnpj: '',
-      cnes: '',
-      logo_url: '',
-      cep: '',
-      street: '',
-      number: '',
-      neighborhood: '',
-      complement: '',
-      county: '',
-      telephone: '',
-      cellphone: '',
-      email: '',
-    },
-    validationSchema: schema,
+    initialValues: companyReducer.company,
+    enableReinitialize: true,
     onSubmit: values => {
-      console.log(values);
-      api
-        .put('company/1', values)
-        .then(response => {
-          alert('atualizado com sucesso');
-        })
-        .catch(error => {
-          alert('houve um erro ao atualizar');
-        });
+      dispatch(SaveCompanyRequest(values));
     },
   });
 
@@ -73,7 +50,10 @@ export default function Company() {
     }
   }
 
-  console.log(formik);
+  useEffect(() => {
+    dispatch(getCompanyRequest());
+  }, []);
+
   return (
     <>
       <Header title="Empresa" />

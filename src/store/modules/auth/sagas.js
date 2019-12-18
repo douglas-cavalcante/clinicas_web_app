@@ -9,13 +9,6 @@ import { signInSuccess, signFailure } from './actions';
 export function* signIn({ payload }) {
   try {
     const { email, password } = payload;
-
-
-
-
-
-
-
     history.push('/dashboard');
   } catch (err) {
     toast.error('Falha na autenticação, verifique seus dados');

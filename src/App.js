@@ -1,6 +1,8 @@
 import React from 'react';
 import { Router } from 'react-router-dom';
 import './config/ReactotronConfig';
+
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
 import { Provider } from 'react-redux';
@@ -21,13 +23,13 @@ function App() {
       <PersistGate persistor={persistor}>
         <Router history={history}>
           <Wrapper>
+            <ToastContainer autoClose={3000} />
             <Navbar />
             <ContentWrapper>
               <Routes />
             </ContentWrapper>
           </Wrapper>
           <Footer />
-          <ToastContainer autoClose={3000} />
         </Router>
       </PersistGate>
     </Provider>
