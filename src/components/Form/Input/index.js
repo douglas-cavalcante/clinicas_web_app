@@ -14,6 +14,7 @@ export default function Input({
   mask,
   handleOnBlur,
   error,
+  disabled,
 }) {
   return (
     <div className={`col-md-${col}`}>
@@ -30,6 +31,7 @@ export default function Input({
             placeholder={placeholder}
             mask={mask}
             onBlur={handleOnBlur}
+            disabled={disabled}
           />
         )}
         {!mask && (
@@ -41,6 +43,7 @@ export default function Input({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
+            disabled={disabled}
           />
         )}
       </div>
@@ -60,10 +63,12 @@ Input.propTypes = {
   mask: PropTypes.string,
   handleOnBlur: PropTypes.func,
   error: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };
 
 Input.defaultProps = {
   mask: false,
-  placeholder: "",
+  disabled: false,
+  placeholder: '',
   handleOnBlur: () => {},
 };

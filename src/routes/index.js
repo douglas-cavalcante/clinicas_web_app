@@ -3,8 +3,10 @@ import { Switch } from 'react-router-dom';
 import Route from './Route';
 
 import SignIn from '../pages/SignIn';
+
 import Dashboard from '../pages/Dashboard';
 import Company from '~/pages/Company';
+import OpeningHours from '~/pages/OpeningHours';
 
 export default function Routes() {
   return (
@@ -14,6 +16,7 @@ export default function Routes() {
       <Route path="/dashboard" component={Dashboard} isPrivate />
 
       <Route path="/empresa" component={Company} isPrivate />
+      <Route path="/horarios" component={OpeningHours} isPrivate />
 
       <Route path="/" component={() => <h1>404</h1>} />
     </Switch>
