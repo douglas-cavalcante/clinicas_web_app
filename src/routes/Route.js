@@ -19,7 +19,6 @@ export default function RouteWrapper({
     return <Redirect to="/dashboard" />;
   }
 
-
   return (
     <Route
       {...rest}

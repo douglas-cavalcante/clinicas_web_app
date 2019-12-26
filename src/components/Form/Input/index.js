@@ -62,7 +62,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   mask: PropTypes.string,
   handleOnBlur: PropTypes.func,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
@@ -71,4 +71,5 @@ Input.defaultProps = {
   disabled: false,
   placeholder: '',
   handleOnBlur: () => {},
+  error: '',
 };

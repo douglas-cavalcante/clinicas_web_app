@@ -1,32 +1,46 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import Axios from 'axios';
-
-import { MdLibraryBooks, MdHome, MdSettingsCell } from 'react-icons/md';
-import {
-  getCompanyRequest,
-  SaveCompanyRequest,
-} from '~/store/modules/company/actions';
-
+import { MdHome, MdSettingsCell, MdLibraryBooks } from 'react-icons/md';
+import { CardHeader, CardBody, CardFooter, Card } from '~/components/Card';
 import Header from '~/components/Header';
-import { Card, CardHeader, CardBody, CardFooter } from '~/components/Card';
+import Row from '~/components/Bootstrap/Row';
 import Input from '~/components/Form/Input';
 
-import Row from '~/components/Bootstrap/Row';
-
 import Description from '~/components/Description';
+import { savePartnesershipRequest } from '~/store/modules/partnership/actions';
+import api from '~/services/api';
+import history from '~/services/history';
 
 // import { Container } from './styles';
-export default function Company() {
+
+export default function PartnershipsForm({ match }) {
   const dispatch = useDispatch();
-  const companyReducer = useSelector(state => state.company);
+  const id = useMemo(() => match.params.id, [match.params.id]);
 
   const formik = useFormik({
-    initialValues: companyReducer.company,
-    enableReinitialize: true,
+    initialValues: {
+      id: '',
+      name: '',
+      company_name: '',
+      cnpj: '',
+      cep: '',
+      street: '',
+      number: '',
+      complement: '',
+      neighborhood: '',
+      county: '',
+      telephone: '',
+      cellphone: '',
+    },
     onSubmit: values => {
-      dispatch(SaveCompanyRequest(values));
+      if (!values.name) {
+        toast.error('O nome do convênio é obrigatório');
+      } else {
+        dispatch(savePartnesershipRequest(values));
+      }
     },
   });
 
@@ -51,17 +65,36 @@ export default function Company() {
   }
 
   useEffect(() => {
-    dispatch(getCompanyRequest());
+    async function loadPartnership() {
+      await api.get(`partnerships/${id}`).then(response => {
+        formik.setValues({
+          ...formik.values,
+          id: response.data.id,
+          name: response.data.name,
+          company_name: response.data.company_name,
+          cnpj: response.data.cnpj,
+          cep: response.data.cep,
+          street: response.data.street,
+          number: response.data.number,
+          complement: response.data.complement,
+          neighborhood: response.data.neighborhood,
+          county: response.data.county,
+          telephone: response.data.telephone,
+          cellphone: response.data.cellphone,
+        });
+      });
+    }
+    if (id) loadPartnership();
   }, []);
 
   return (
     <>
-      <Header title="Empresa" />
+      <Header title="Convênios" />
       <div className="content">
         <div className="container">
           <Card>
             <form onSubmit={formik.handleSubmit}>
-              <CardHeader description="Atualize os dados cadastrais da sua empresa" />
+              <CardHeader description="Adicione um novo convênio para o sistema" />
               <CardBody>
                 <Description
                   icon={
@@ -71,7 +104,7 @@ export default function Company() {
                       className="mr-2"
                     />
                   }
-                  title="Dados da empresa"
+                  title="Dados do convênio"
                 />
                 <Row>
                   <Input
@@ -101,26 +134,6 @@ export default function Company() {
                     value={formik.values.cnpj}
                     onChange={formik.handleChange}
                     mask="99.999.999/9999-99"
-                  />
-                </Row>
-                <Row>
-                  <Input
-                    col="4"
-                    label="CNES"
-                    id="inputCnes"
-                    type="text"
-                    name="cnes"
-                    value={formik.values.cnes}
-                    onChange={formik.handleChange}
-                  />
-                  <Input
-                    col="4"
-                    label="URL da logo"
-                    id="inputUrl"
-                    type="text"
-                    name="logo_url"
-                    value={formik.values.logo_url}
-                    onChange={formik.handleChange}
                   />
                 </Row>
                 <Description
@@ -218,23 +231,18 @@ export default function Company() {
                     onChange={formik.handleChange}
                     mask="(99) 99999-9999"
                   />
-                  <Input
-                    col="4"
-                    label="Email"
-                    id="inputEmail"
-                    type="email"
-                    name="email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                  />
                 </Row>
               </CardBody>
               <CardFooter>
-                <button type="button" className="btn btn-default">
+                <button
+                  type="button"
+                  className="btn btn-default"
+                  onClick={() => history.goBack()}
+                >
                   Voltar
                 </button>
                 <button type="submit" className="btn btn-success float-right">
-                  Cadastrar
+                  {id ? 'Atualizar' : 'Cadastrar'}
                 </button>
               </CardFooter>
             </form>

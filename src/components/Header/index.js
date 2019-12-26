@@ -1,8 +1,9 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 // import { Container } from './styles';
 
-export default function Header({ title, buttonTitle }) {
+export default function Header({ title, buttonTitle, path }) {
   return (
     <div className="content-header">
       <div className="container">
@@ -12,9 +13,13 @@ export default function Header({ title, buttonTitle }) {
           </div>
           {buttonTitle && (
             <div className="col-sm-6">
-              <button className="btn btn-default" type="button">
+              <Link
+                to={path}
+                className="btn btn-success float-right"
+                type="button"
+              >
                 {buttonTitle}
-              </button>
+              </Link>
             </div>
           )}
         </div>
@@ -22,3 +27,14 @@ export default function Header({ title, buttonTitle }) {
     </div>
   );
 }
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired,
+  buttonTitle: PropTypes.string,
+  path: PropTypes.string,
+};
+
+Header.defaultProps = {
+  buttonTitle: '',
+  path: '',
+};

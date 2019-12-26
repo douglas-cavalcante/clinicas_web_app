@@ -37,19 +37,19 @@ export default function Navbar() {
               </a>
             </li>
             <li className="nav-item">
-              <Link to="" className="nav-link">
+              <Link to="/" className="nav-link">
                 Contact
               </Link>
             </li>
             <li className="nav-item dropdown">
-              <Link
+              <a
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
                 className="nav-link dropdown-toggle"
               >
                 Dropdown
-              </Link>
+              </a>
               <ul
                 aria-labelledby="dropdownSubMenu1"
                 className="dropdown-menu border-0 shadow"
