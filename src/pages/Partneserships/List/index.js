@@ -27,7 +27,7 @@ export default function PartnershipsList() {
   }, []);
 
   function handleRedirectToProcedures(item) {
-    history.push(`/${item.name}/procedimentos`);
+    history.push(`/${item.id}/procedimentos`, { name: item.name });
   }
 
   function handleRedirectToEditPage(item) {

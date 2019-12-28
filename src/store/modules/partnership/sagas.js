@@ -18,7 +18,6 @@ export function* savePartnesership({ payload }) {
       toast.success('Convênio cadastrado com sucesso !');
       history.goBack();
     } else {
-      console.log(id);
       yield call(api.put, `partnerships/${id}`, payload.data);
       toast.success('Convênio atualizado com sucesso !');
       history.goBack();
