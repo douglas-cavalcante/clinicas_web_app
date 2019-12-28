@@ -6,7 +6,8 @@ import company from './company/sagas';
 import openingHours from './openingHours/sagas';
 
 import partnership from './partnership/sagas';
+import procedure from './procedure/sagas';
 
 export default function* rootSaga() {
-  return yield all([auth, user, company, openingHours, partnership]);
+  return yield all([auth, user, company, openingHours, partnership, procedure]);
 }

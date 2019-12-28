@@ -36,13 +36,19 @@ export default function Routes() {
 
       <Route
         exact
-        path="/:name/procedimentos"
+        path="/:id/procedimentos"
         component={ProceduresList}
         isPrivate
       />
       <Route
         exact
-        path="/:name/procedimentos/novo"
+        path="/:partnership_id/procedimentos/novo"
+        component={ProceduresForm}
+        isPrivate
+      />
+      <Route
+        exact
+        path="/procedimentos/:id"
         component={ProceduresForm}
         isPrivate
       />

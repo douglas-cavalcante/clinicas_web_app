@@ -6,6 +6,7 @@ import company from './company/reducer';
 import openingHours from './openingHours/reducer';
 
 import partnership from './partnership/reducer';
+import procedure from './procedure/reducer';
 
 export default combineReducers({
   auth,
@@ -13,4 +14,5 @@ export default combineReducers({
   company,
   openingHours,
   partnership,
+  procedure,
 });
