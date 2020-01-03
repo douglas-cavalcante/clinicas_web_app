@@ -67,7 +67,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  mask: false,
+  mask: '',
   disabled: false,
   placeholder: '',
   handleOnBlur: () => {},
