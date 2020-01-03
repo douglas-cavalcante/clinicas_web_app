@@ -61,6 +61,11 @@ export default function Navbar() {
                     Convênios
                   </Link>
                 </li>
+                <li>
+                  <Link to="/profissionais" className="dropdown-item">
+                    Profissionais
+                  </Link>
+                </li>
 
                 <li className="dropdown-divider" />
 
@@ -73,6 +78,11 @@ export default function Navbar() {
                 <li>
                   <Link to="/horarios" className="dropdown-item">
                     Horários de funcionamento
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/salas" className="dropdown-item">
+                    Salas
                   </Link>
                 </li>
               </ul>
