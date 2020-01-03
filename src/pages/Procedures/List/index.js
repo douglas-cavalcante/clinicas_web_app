@@ -79,6 +79,13 @@ export default function ProceduresList({ match, location }) {
                 buttonText: 'Bloquear',
                 keyConditionButtonText: 'status',
               },
+              {
+                text: 'Profissionais',
+                className: 'btn btn-sm btn-warning',
+                onClick: () => {},
+                buttonText: 'Alocar',
+                keyConditionButtonText: null,
+              },
             ]}
           />
         </div>

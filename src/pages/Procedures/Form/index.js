@@ -50,7 +50,9 @@ export default function ProceduresForm({ match }) {
         dispatch(saveProcedureRequest({ ...values }));
       } else {
         // cadastro
-        saveProcedureRequest({ ...values, partnership_id: partnershipId });
+        dispatch(
+          saveProcedureRequest({ ...values, partnership_id: partnershipId })
+        );
       }
     },
   });
