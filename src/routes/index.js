@@ -11,6 +11,10 @@ import PartnershipsList from '~/pages/Partneserships/List';
 import PartnershipsForm from '~/pages/Partneserships/Form';
 import ProceduresList from '~/pages/Procedures/List';
 import ProceduresForm from '~/pages/Procedures/Form';
+import ProfessionalForm from '~/pages/Professional/Form';
+import ProfessionalList from '~/pages/Professional/List';
+import RoomForm from '~/pages/Rooms/Form';
+import RoomList from '~/pages/Rooms/List';
 
 export default function Routes() {
   return (
@@ -52,6 +56,29 @@ export default function Routes() {
         component={ProceduresForm}
         isPrivate
       />
+
+      <Route
+        exact
+        path="/profissionais"
+        component={ProfessionalList}
+        isPrivate
+      />
+      <Route
+        exact
+        path="/profissionais/novo"
+        component={ProfessionalForm}
+        isPrivate
+      />
+      <Route
+        exact
+        path="/profissionais/:id"
+        component={ProfessionalForm}
+        isPrivate
+      />
+
+      <Route exact path="/salas" component={RoomList} isPrivate />
+      <Route exact path="/salas/nova" component={RoomForm} isPrivate />
+      <Route exact path="/salas/:id" component={RoomForm} isPrivate />
 
       <Route path="/" component={() => <h1>404</h1>} />
     </Switch>
