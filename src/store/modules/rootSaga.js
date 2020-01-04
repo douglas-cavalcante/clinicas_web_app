@@ -11,6 +11,7 @@ import procedure from './procedure/sagas';
 import room from './room/sagas';
 
 import professional from './professional/sagas';
+import professionalSchedule from './professionalSchedule/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     procedure,
     room,
     professional,
+    professionalSchedule,
   ]);
 }

@@ -43,6 +43,7 @@ export default function Input({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
+            onBlur={handleOnBlur}
             disabled={disabled}
           />
         )}

@@ -11,6 +11,7 @@ import procedure from './procedure/reducer';
 import room from './room/reducer';
 
 import professional from './professional/reducer';
+import professionalSchedule from './professionalSchedule/reducer';
 
 export default combineReducers({
   auth,
@@ -21,4 +22,5 @@ export default combineReducers({
   procedure,
   room,
   professional,
+  professionalSchedule,
 });
