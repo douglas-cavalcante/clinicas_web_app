@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { toast } from 'react-toastify';
+
 import Header from '~/components/Header';
 import Table from '~/components/Table';
 import { getProfessionalsRequest } from '~/store/modules/professional/actions';
@@ -39,6 +42,16 @@ export default function ProfessionalList() {
     history.push(`profissionais/${item.id}`);
   }
 
+  function handleRedirectToSchedule(item) {
+    if (item.role_id === 4 || item.role_id === 5) {
+      history.push(`/${item.id}/agenda`);
+    } else {
+      toast.error(
+        'Não é permitido inserir uma agenda para esse perfil de usuário.'
+      );
+    }
+  }
+
   return (
     <>
       <Header
@@ -64,7 +77,7 @@ export default function ProfessionalList() {
               {
                 text: 'Agenda',
                 className: 'btn btn-sm btn-warning',
-                onClick: () => {},
+                onClick: handleRedirectToSchedule,
                 buttonText: 'Entrar',
                 keyConditionButtonText: null,
               },

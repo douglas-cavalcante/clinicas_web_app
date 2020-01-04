@@ -9,12 +9,18 @@ import OpeningHours from '~/pages/OpeningHours';
 
 import PartnershipsList from '~/pages/Partneserships/List';
 import PartnershipsForm from '~/pages/Partneserships/Form';
+
 import ProceduresList from '~/pages/Procedures/List';
 import ProceduresForm from '~/pages/Procedures/Form';
+
 import ProfessionalForm from '~/pages/Professional/Form';
 import ProfessionalList from '~/pages/Professional/List';
+
 import RoomForm from '~/pages/Rooms/Form';
 import RoomList from '~/pages/Rooms/List';
+
+import ProfessionalScheduleList from '~/pages/ProfessionalSchedule/List';
+import ProfessionalScheduleForm from '~/pages/ProfessionalSchedule/Form';
 
 export default function Routes() {
   return (
@@ -73,6 +79,25 @@ export default function Routes() {
         exact
         path="/profissionais/:id"
         component={ProfessionalForm}
+        isPrivate
+      />
+
+      <Route
+        exact
+        path="/:id/agenda"
+        component={ProfessionalScheduleList}
+        isPrivate
+      />
+      <Route
+        exact
+        path="/:id/agenda/nova"
+        component={ProfessionalScheduleForm}
+        isPrivate
+      />
+      <Route
+        exact
+        path="/:id/agenda/:agenda_id"
+        component={ProfessionalScheduleForm}
         isPrivate
       />
 

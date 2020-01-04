@@ -313,32 +313,33 @@ export default function ProfessionalForm({ match }) {
                       onChange={formik.handleChange}
                     />
                   </Row>
+
+                  <Description
+                    icon={
+                      <MdHttps color="#495057" size={30} className="mr-2" />
+                    }
+                    title="Permissões"
+                  />
+
+                  <Row>
+                    <SwitchButton
+                      col="4"
+                      onChange={formik.setFieldValue}
+                      name="can_selected"
+                      label="Realiza consultas ?"
+                      id="can_selected"
+                      checked={formik.values.can_selected}
+                    />
+                    <SwitchButton
+                      col="4"
+                      onChange={formik.setFieldValue}
+                      name="can_schedule"
+                      label="Pode agendar suas consultas ?"
+                      id="can_schedule"
+                      checked={formik.values.can_schedule}
+                    />
+                  </Row>
                 </Show>
-
-                <Description
-                  icon={<MdHttps color="#495057" size={30} className="mr-2" />}
-                  title="Permissões"
-                />
-
-                <Row>
-                  <SwitchButton
-                    col="4"
-                    onChange={formik.setFieldValue}
-                    name="can_selected"
-                    label="Realiza consultas ?"
-                    id="can_selected"
-                    checked={formik.values.can_selected}
-                  />
-                  <SwitchButton
-                    col="4"
-                    onChange={formik.setFieldValue}
-                    name="can_schedule"
-                    label="Pode agendar suas consultas ?"
-                    id="can_schedule"
-                    checked={formik.values.can_schedule}
-                  />
-                </Row>
-
                 <Description
                   icon={<MdHome color="#495057" size={30} className="mr-2" />}
                   title="Dados de endereço"
