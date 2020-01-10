@@ -5,7 +5,10 @@ import Table from '~/components/Table';
 
 import history from '~/services/history';
 import api from '~/services/api';
-import { getProfessionalScheduleRequest } from '~/store/modules/professionalSchedule/actions';
+import {
+  getProfessionalScheduleRequest,
+  professionalScheduleFailure,
+} from '~/store/modules/professionalSchedule/actions';
 
 const columns = [
   {

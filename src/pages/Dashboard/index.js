@@ -1,62 +1,113 @@
-import React from 'react';
-import { Card, CardHeader, CardBody, CardFooter } from '~/components/Card';
-import Header from '~/components/Header';
-// import { Container } from './styles';
+import React, { useEffect } from 'react';
+import { addMinutes, format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
+const options = { locale: ptBR };
 export default function Dashboard() {
-  return (
-    <>
-      <Header title="Convênios" />
-      <div className="content">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <Card>
-                <CardHeader>
-                  <h5 className="card-title m-0">
-                    Adicione um novo convênio para seu sistema
-                  </h5>
-                </CardHeader>
-                <CardBody>
-                  <form role="form">
-                    <div className="row">
-                      <div className="col-sm-6">
-                        <div className="form-group">
-                          <label className="text-gray">Nome</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter ..."
-                          />
-                        </div>
-                      </div>
-                      <div className="col-sm-6">
-                        <div className="form-group">
-                          <label>Text Disabled</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Enter ..."
-                            disabled
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </CardBody>
-                <CardFooter>
-                  <button type="submit" className="btn btn-default">
-                    Voltar
-                  </button>
-                  <button type="submit" className="btn btn-success float-right">
-                    Cadastrar
-                  </button>
-                </CardFooter>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  useEffect(() => {
+    async function handleSchedule() {
+      // const date = new Date();
+
+      // const currentIsoDay = await getISODay(date, options);
+
+      // pegar agendas de todos naquela data e cruzar responsaveis com o start
+
+      const currentSchudule = [
+        {
+          day: 2,
+          start: '08:00',
+          responsavel: 1,
+        },
+        {
+          day: 2,
+          start: '13:00',
+          responsavel: 1,
+        },
+      ];
+
+      const doctorSchedule = [
+        {
+          day: 2,
+          start: '08:00',
+          end: '12:00',
+          duration: '20:00',
+          responsavel: 1,
+        },
+        {
+          day: 2,
+          start: '13:00',
+          end: '15:00',
+          duration: '30:00',
+          responsavel: 1,
+        },
+      ];
+
+      const newSchedule = [];
+
+      const currentDate = new Date();
+
+      doctorSchedule.map(item => {
+        const currentStart = item.start.split(':');
+        const currentEnd = item.end.split(':');
+        const [duration] = item.duration.split(':');
+
+        let i = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate(),
+          currentStart[0],
+          currentStart[1]
+        );
+
+        while (
+          i <=
+          new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            currentDate.getDate(),
+            currentEnd[0],
+            currentEnd[1]
+          )
+        ) {
+          newSchedule.push({
+            start: format(i, 'HH:mm', {
+              options,
+            }),
+            responsavel: item.responsavel,
+          });
+          const parseDate = addMinutes(
+            new Date(
+              currentDate.getFullYear(),
+              currentDate.getMonth(),
+              currentDate.getDate(),
+              i.getHours(),
+              i.getMinutes()
+            ),
+            duration
+          );
+
+          i = parseDate;
+        }
+      });
+
+      newSchedule.map(item => {
+        const verify = currentSchudule.find(
+          registro =>
+            registro.responsavel === item.responsavel &&
+            registro.start === item.start
+        );
+
+        if (verify) {
+          item.start = `já marcado - ${item.start}`;
+        }
+        return item;
+      });
+
+      console.log(newSchedule);
+    }
+
+    handleSchedule();
+  }, []);
+
+  return <>22323</>;
 }

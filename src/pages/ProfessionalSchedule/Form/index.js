@@ -23,7 +23,7 @@ import { saveProfessionalScheduleRequest } from '~/store/modules/professionalSch
 export default function ProfessionalScheduleForm({ match }) {
   const dispatch = useDispatch();
 
-  const id = useMemo(() => match.params.id, [match.params.id]);
+  const professionalId = useMemo(() => match.params.id, [match.params.id]);
   const agendaId = useMemo(() => match.params.agenda_id, [
     match.params.agenda_id,
   ]);
@@ -59,7 +59,7 @@ export default function ProfessionalScheduleForm({ match }) {
             duration,
             room_id: room_id.value,
             quantity,
-            professional_id: id,
+            professional_id: professionalId,
             id,
           })
         );
@@ -90,7 +90,7 @@ export default function ProfessionalScheduleForm({ match }) {
   }
 
   async function loadProfessional() {
-    await api.get(`professionals/${id}`).then(response => {
+    await api.get(`professionals/${professionalId}`).then(response => {
       setCurrentProfessional(response.data.name);
     });
   }
@@ -129,7 +129,7 @@ export default function ProfessionalScheduleForm({ match }) {
   }
 
   useEffect(() => {
-    if (id) loadProfessional();
+    if (professionalId) loadProfessional();
     loadRoomsOptions();
     loadSchedule();
   }, []);
@@ -223,7 +223,7 @@ export default function ProfessionalScheduleForm({ match }) {
                   Voltar
                 </button>
                 <button type="submit" className="btn btn-success float-right">
-                  {id ? 'Atualizar' : 'Cadastrar'}
+                  {agendaId ? 'Atualizar' : 'Cadastrar'}
                 </button>
               </CardFooter>
             </form>

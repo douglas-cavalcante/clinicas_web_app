@@ -38,6 +38,10 @@ export default function ProceduresList({ match, location }) {
     history.push(`/procedimentos/${item.id}`);
   }
 
+  function handleRedirectToAllocate() {
+    history.push(`/${id}/procedimentos/alocar`);
+  }
+
   function handleChangeStatus(item) {
     api
       .put(`procedures/${item.id}/status`)
@@ -80,9 +84,9 @@ export default function ProceduresList({ match, location }) {
                 keyConditionButtonText: 'status',
               },
               {
-                text: 'Profissionais',
+                text: 'Professionais',
                 className: 'btn btn-sm btn-warning',
-                onClick: () => {},
+                onClick: handleRedirectToAllocate,
                 buttonText: 'Alocar',
                 keyConditionButtonText: null,
               },

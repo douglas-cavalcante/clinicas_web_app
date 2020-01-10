@@ -1,18 +1,32 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
+import React from 'react';
+import PropTypes from 'prop-types';
+import DatePicker, { registerLocale } from 'react-datepicker';
 // import { Container } from './styles';
-
+import ptBR from 'date-fns/locale/pt-BR';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function DatePickerInput({ inline }) {
-  const [startDate, setStartDate] = useState(new Date());
+export default function DatePickerInput({ name, value, onChange }) {
+  registerLocale('pt-BR', ptBR);
 
+  function handleChange(date) {
+    onChange(name, date);
+  }
   return (
     <DatePicker
-      selected={startDate}
-      onChange={date => setStartDate(date)}
+      onChange={handleChange}
+      inline
+      autoComplete="off"
       className="form-control"
-      inline={inline}
+      locale="pt-BR"
+      value={value}
+      name={name}
+      selected={value}
     />
   );
 }
+
+DatePickerInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.object,
+  onChange: PropTypes.func.isRequired,
+};

@@ -52,7 +52,7 @@ export function* getProfessionalSchedule({ payload }) {
       item.room = item.room.name;
       return item;
     });
-    console.log(formatData);
+
     yield put(getProfessionalScheduleSuccess(formatData));
   } catch (error) {
     toast.error('Houve um erro interno.');

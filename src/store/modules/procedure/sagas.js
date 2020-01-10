@@ -5,6 +5,7 @@ import api from '~/services/api';
 
 import { getProceduresSuccess, proceduresFailure } from './actions';
 import history from '~/services/history';
+import { getProceduresProfessionalsRequest } from '../procedureProfessional/actions';
 
 export function* saveProcedure({ payload }) {
   try {
@@ -23,6 +24,19 @@ export function* saveProcedure({ payload }) {
     yield put(proceduresFailure());
   }
 }
+
+export function* setProcedureToProfessional({ payload }) {
+  const { data } = payload;
+  try {
+    yield call(api.post, `proceduresProfessionals`, data);
+    toast.success(' Profissional vinculado com sucesso !');
+    yield put(getProceduresProfessionalsRequest(data.procedure_id));
+  } catch (error) {
+    if (error.response.data && error.response.data.err)
+      toast.error(error.response.data.err.message);
+  }
+}
+
 export function* getProcedures({ payload }) {
   try {
     const response = yield call(api.get, `procedures?id=${payload.id}`);
@@ -36,4 +50,8 @@ export function* getProcedures({ payload }) {
 export default all([
   takeLatest('@procedures/GET_PROCEDURES_REQUEST', getProcedures),
   takeLatest('@procedures/SAVE_PROCEDURE_REQUEST', saveProcedure),
+  takeLatest(
+    '@procedures/SAVE_PROCEDURE_TO_PROFESSIONAL_REQUEST',
+    setProcedureToProfessional
+  ),
 ]);

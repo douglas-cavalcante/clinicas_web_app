@@ -24,6 +24,15 @@ export function saveProcedureRequest(data) {
   };
 }
 
+export function setProcedureToProfessionalRequest(data) {
+  return {
+    type: '@procedures/SAVE_PROCEDURE_TO_PROFESSIONAL_REQUEST',
+    payload: {
+      data,
+    },
+  };
+}
+
 export function proceduresFailure() {
   return {
     type: '@procedures/REQUEST_FAILURE',

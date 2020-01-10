@@ -14,6 +14,7 @@ import Input from '~/components/Form/Input';
 import Row from '~/components/Bootstrap/Row';
 
 import Description from '~/components/Description';
+import { toast } from 'react-toastify';
 
 // import { Container } from './styles';
 export default function OpeningHours() {
@@ -35,7 +36,17 @@ export default function OpeningHours() {
               enableReinitialize
               initialValues={{ schedules: OpeningHoursReducer.openingHours }}
               onSubmit={values => {
-                dispatch(saveOpeningHoursRequest(values));
+                const validation = values.schedules.filter(
+                  item => (item.start && !item.end) || (item.end && !item.start)
+                );
+
+                if (validation.length > 0) {
+                  toast.error(
+                    'Se o horário inicial foi informado, então o horário final é obrigatório. Preencha corretamente !'
+                  );
+                } else {
+                  dispatch(saveOpeningHoursRequest(values));
+                }
               }}
             >
               {({ handleChange, values }) => (

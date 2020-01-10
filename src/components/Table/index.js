@@ -63,6 +63,7 @@ export default function Table({ data, columns, extrasColumns, keyField }) {
             striped
             bootstrap4
             pagination={paginationFactory()}
+            noDataIndication="Sem resultados"
           />
         </>
       )}
