@@ -22,6 +22,22 @@ export function saveProfessionalRequest(data) {
   };
 }
 
+export function getProfessionalsOptionsRequest() {
+  return {
+    type: '@professionals/GET_PROFESSIONALS_OPTIONS_REQUEST',
+    payload: {},
+  };
+}
+
+export function getProfessionalsOptionsSuccess(data) {
+  return {
+    type: '@professionals/GET_PROFESSIONALS_OPTIONS_SUCCESS',
+    payload: {
+      data,
+    },
+  };
+}
+
 export function professionalsFailure() {
   return {
     type: '@professionals/REQUEST_FAILURE',

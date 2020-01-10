@@ -22,11 +22,17 @@ import RoomList from '~/pages/Rooms/List';
 import ProfessionalScheduleList from '~/pages/ProfessionalSchedule/List';
 import ProfessionalScheduleForm from '~/pages/ProfessionalSchedule/Form';
 import ProceduresProfessionals from '~/pages/ProceduresProfessionals';
+import Dashboard from '~/pages/Dashboard';
+import SchedulesList from '~/pages/Schedule/List';
+import IndicationForm from '~/pages/Indications/Form';
+import IndicationList from '~/pages/Indications/List';
 
 export default function Routes() {
   return (
     <Switch>
-      <Route exat path="/" exact component={SignIn} />
+      <Route exact path="/" component={SignIn} />
+
+      <Route exact path="/dashboard" component={Dashboard} isPrivate />
 
       <Route exact path="/empresa" component={Company} isPrivate />
       <Route exact path="/horarios" component={OpeningHours} isPrivate />
@@ -110,6 +116,22 @@ export default function Routes() {
         exact
         path="/:id/procedimentos/alocar"
         component={ProceduresProfessionals}
+        isPrivate
+      />
+
+      <Route exact path="/agendamentos" component={SchedulesList} isPrivate />
+
+      <Route exact path="/indicacoes" component={IndicationList} isPrivate />
+      <Route
+        exact
+        path="/indicacoes/nova"
+        component={IndicationForm}
+        isPrivate
+      />
+      <Route
+        exact
+        path="/indicacoes/:id"
+        component={IndicationForm}
         isPrivate
       />
 

@@ -3,6 +3,7 @@ import produce from 'immer';
 const INITIAL_STATE = {
   data: [],
   loading: false,
+  options: [],
 };
 
 export default function professional(state = INITIAL_STATE, action) {
@@ -19,6 +20,10 @@ export default function professional(state = INITIAL_STATE, action) {
       }
       case '@professionals/SAVE_PROFESSIONALS_REQUEST': {
         draft.loading = false;
+        break;
+      }
+      case '@professionals/GET_PROFESSIONALS_OPTIONS_SUCCESS': {
+        draft.options = action.payload.data;
         break;
       }
       case '@professionals/REQUEST_FAILURE': {

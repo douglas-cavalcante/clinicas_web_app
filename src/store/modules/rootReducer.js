@@ -7,11 +7,16 @@ import openingHours from './openingHours/reducer';
 
 import partnership from './partnership/reducer';
 import procedure from './procedure/reducer';
+import procedureProfessional from './procedureProfessional/reducer';
 
 import room from './room/reducer';
 
 import professional from './professional/reducer';
 import professionalSchedule from './professionalSchedule/reducer';
+
+import schedule from './schedule/reducer';
+
+import indication from './indication/reducer';
 
 export default combineReducers({
   auth,
@@ -20,7 +25,10 @@ export default combineReducers({
   openingHours,
   partnership,
   procedure,
+  procedureProfessional,
   room,
   professional,
   professionalSchedule,
+  schedule,
+  indication,
 });

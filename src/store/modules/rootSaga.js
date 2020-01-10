@@ -13,6 +13,12 @@ import room from './room/sagas';
 import professional from './professional/sagas';
 import professionalSchedule from './professionalSchedule/sagas';
 
+import procedureProfessional from './procedureProfessional/sagas';
+
+import schedule from './schedule/sagas';
+
+import indication from './indication/sagas';
+
 export default function* rootSaga() {
   return yield all([
     auth,
@@ -21,8 +27,11 @@ export default function* rootSaga() {
     openingHours,
     partnership,
     procedure,
+    procedureProfessional,
     room,
     professional,
     professionalSchedule,
+    schedule,
+    indication,
   ]);
 }
