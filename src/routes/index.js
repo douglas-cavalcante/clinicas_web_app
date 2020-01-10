@@ -21,6 +21,7 @@ import RoomList from '~/pages/Rooms/List';
 
 import ProfessionalScheduleList from '~/pages/ProfessionalSchedule/List';
 import ProfessionalScheduleForm from '~/pages/ProfessionalSchedule/Form';
+import ProceduresProfessionals from '~/pages/ProceduresProfessionals';
 
 export default function Routes() {
   return (
@@ -104,6 +105,13 @@ export default function Routes() {
       <Route exact path="/salas" component={RoomList} isPrivate />
       <Route exact path="/salas/nova" component={RoomForm} isPrivate />
       <Route exact path="/salas/:id" component={RoomForm} isPrivate />
+
+      <Route
+        exact
+        path="/:id/procedimentos/alocar"
+        component={ProceduresProfessionals}
+        isPrivate
+      />
 
       <Route path="/" component={() => <h1>404</h1>} />
     </Switch>
