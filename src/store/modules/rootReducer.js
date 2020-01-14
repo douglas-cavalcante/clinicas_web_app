@@ -17,6 +17,11 @@ import professionalSchedule from './professionalSchedule/reducer';
 import schedule from './schedule/reducer';
 
 import indication from './indication/reducer';
+import patient from './patient/reducer';
+
+import account from './financial/account/reducer';
+
+import financials from './financial/financials/reducer';
 
 export default combineReducers({
   auth,
@@ -31,4 +36,9 @@ export default combineReducers({
   professionalSchedule,
   schedule,
   indication,
+  patient,
+
+  // financeiro
+  account,
+  financials,
 });

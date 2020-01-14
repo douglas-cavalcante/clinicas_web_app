@@ -42,6 +42,10 @@ export default function ProfessionalList() {
     history.push(`profissionais/${item.id}`);
   }
 
+  function handleRedirectToUser(item) {
+    history.push(`profissionais/${item.id}/usuario`);
+  }
+
   function handleRedirectToSchedule(item) {
     if (item.role_id === 4 || item.role_id === 5) {
       history.push(`/${item.id}/agenda`);
@@ -59,7 +63,6 @@ export default function ProfessionalList() {
         buttonTitle="Novo profissional"
         path="/profissionais/novo"
       />
-
       <div className="content">
         <div className="container">
           <Table
@@ -79,6 +82,14 @@ export default function ProfessionalList() {
                 className: 'btn btn-sm btn-warning',
                 onClick: handleRedirectToSchedule,
                 buttonText: 'Entrar',
+                keyConditionButtonText: null,
+                keyConditionShowButton: 'role_id',
+              },
+              {
+                text: 'Login',
+                className: 'btn btn-sm btn-info',
+                onClick: handleRedirectToUser,
+                buttonText: 'Disponibilizar',
                 keyConditionButtonText: null,
               },
             ]}

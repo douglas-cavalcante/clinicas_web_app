@@ -433,32 +433,6 @@ export default function ProfessionalForm({ match }) {
                   />
                 </Row>
 
-                <Description
-                  icon={<MdLock color="#495057" size={30} className="mr-2" />}
-                  title="Dados de login"
-                />
-
-                <Row>
-                  <Input
-                    col="6"
-                    label="Usuário *"
-                    id="inputusername"
-                    type="text"
-                    name="username"
-                    value={formik.values.username}
-                    onChange={formik.handleChange}
-                  />
-                  <Input
-                    col="6"
-                    label="Senha secreta"
-                    id="inputPassword"
-                    type="password"
-                    name="password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                  />
-                </Row>
-
                 <Show
                   display={
                     formik.values.role_id &&
@@ -494,7 +468,7 @@ export default function ProfessionalForm({ match }) {
                   Voltar
                 </button>
                 <button type="submit" className="btn btn-success float-right">
-                  Cadastrar
+                  {id ? 'Atualizar' : 'Cadastrar'}
                 </button>
               </CardFooter>
             </form>

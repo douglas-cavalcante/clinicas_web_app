@@ -116,15 +116,8 @@ export default function ProfessionalScheduleForm({ match }) {
   }
 
   async function loadRoomsOptions() {
-    await api.get(`rooms`).then(response => {
-      const parseRooms = response.data.map(room => {
-        return {
-          value: room.id,
-          label: room.name,
-        };
-      });
-
-      setRoomsOptions(parseRooms);
+    await api.get(`rooms/options`).then(response => {
+      setRoomsOptions(response.data);
     });
   }
 

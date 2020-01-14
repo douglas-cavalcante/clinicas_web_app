@@ -26,6 +26,7 @@ export function* saveIndication({ payload }) {
     yield put(indicationFailure());
   }
 }
+
 export function* getIndications() {
   try {
     const response = yield call(api.get, `indications`);

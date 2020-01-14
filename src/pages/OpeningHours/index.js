@@ -96,7 +96,7 @@ export default function OpeningHours() {
                       type="submit"
                       className="btn btn-success float-right"
                     >
-                      Cadastrar
+                      Atualizar horários
                     </button>
                   </CardFooter>
                 </Form>

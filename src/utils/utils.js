@@ -12,3 +12,8 @@ export const dayOptions = [
   { value: '6', label: 'Sábado' },
   { value: '7', label: 'DOmingo' },
 ];
+
+export const { format: formatValues } = new Intl.NumberFormat('pt-br', {
+  style: 'currency',
+  currency: 'BRL',
+});

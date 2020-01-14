@@ -18,6 +18,13 @@ import procedureProfessional from './procedureProfessional/sagas';
 import schedule from './schedule/sagas';
 
 import indication from './indication/sagas';
+import patient from './patient/sagas';
+
+// Financeiro
+
+import account from './financial/account/sagas';
+
+import financials from './financial/financials/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -33,5 +40,9 @@ export default function* rootSaga() {
     professionalSchedule,
     schedule,
     indication,
+    patient,
+    // financeiro
+    account,
+    financials,
   ]);
 }

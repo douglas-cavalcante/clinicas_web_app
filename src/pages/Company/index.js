@@ -234,7 +234,7 @@ export default function Company() {
                   Voltar
                 </button>
                 <button type="submit" className="btn btn-success float-right">
-                  Cadastrar
+                  Atualizar Empresa
                 </button>
               </CardFooter>
             </form>

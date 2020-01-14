@@ -28,6 +28,33 @@ export function* saveProfessional({ payload }) {
   }
 }
 
+export function* saveUser({ payload }) {
+  try {
+    const { id } = payload.data;
+    if (!id) {
+      yield call(api.post, 'users', payload.data);
+      toast.success('Usuário cadastrado com sucesso !');
+      history.goBack();
+    } else {
+      const { username, password } = payload.data;
+
+      if (password) {
+        yield call(api.put, `users/${id}`, payload.data);
+      } else {
+        yield call(api.put, `users/${id}`, {
+          username,
+        });
+        toast.success('Usuário atualizado com sucesso !');
+      }
+
+      history.goBack();
+    }
+  } catch (error) {
+    toast.error('Houve um erro ao tentar atualizar.');
+    yield put(professionalsFailure());
+  }
+}
+
 export function* getProfessionals() {
   try {
     const response = yield call(api.get, `professionals`);
@@ -55,4 +82,5 @@ export default all([
     '@professionals/GET_PROFESSIONALS_OPTIONS_REQUEST',
     getProfessionalsOptions
   ),
+  takeLatest('@professionals/SAVE_USER_REQUEST', saveUser),
 ]);

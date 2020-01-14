@@ -24,31 +24,67 @@ import ProfessionalScheduleForm from '~/pages/ProfessionalSchedule/Form';
 import ProceduresProfessionals from '~/pages/ProceduresProfessionals';
 import Dashboard from '~/pages/Dashboard';
 import SchedulesList from '~/pages/Schedule/List';
+
 import IndicationForm from '~/pages/Indications/Form';
 import IndicationList from '~/pages/Indications/List';
+
+import PatientForm from '~/pages/Patients/Form';
+import PatientList from '~/pages/Patients/List';
+import SchedulesForm from '~/pages/Schedule/Form';
+import AccountList from '~/pages/Financial/Accounts/List';
+import AccountForm from '~/pages/Financial/Accounts/Form';
+import FinancialsForm from '~/pages/Financial/Financials/Form';
+import FinancialsList from '~/pages/Financial/Financials/List';
+import UsersForm from '~/pages/Users';
 
 export default function Routes() {
   return (
     <Switch>
-      <Route exact path="/" component={SignIn} />
+      <Route exact path="/" component={SignIn} permissions={[1]} />
 
-      <Route exact path="/dashboard" component={Dashboard} isPrivate />
+      <Route
+        exact
+        path="/dashboard"
+        component={Dashboard}
+        isPrivate
+        permissions={[1, 3]}
+      />
 
-      <Route exact path="/empresa" component={Company} isPrivate />
-      <Route exact path="/horarios" component={OpeningHours} isPrivate />
+      <Route
+        exact
+        path="/empresa"
+        component={Company}
+        isPrivate
+        permissions={[1]}
+      />
+      <Route
+        exact
+        path="/horarios"
+        component={OpeningHours}
+        isPrivate
+        permissions={[1]}
+      />
 
-      <Route exact path="/convenios" component={PartnershipsList} isPrivate />
+      <Route
+        exact
+        path="/convenios"
+        component={PartnershipsList}
+        isPrivate
+        permissions={[1]}
+      />
       <Route
         exact
         path="/convenios/novo"
         component={PartnershipsForm}
         isPrivate
+        permissions={[1]}
       />
       <Route
         path="/convenios/:id"
         exact
         component={PartnershipsForm}
         isPrivate
+        permissions={[1]}
       />
 
       <Route
@@ -56,18 +92,21 @@ export default function Routes() {
         path="/:id/procedimentos"
         component={ProceduresList}
         isPrivate
+        permissions={[1]}
       />
       <Route
         exact
         path="/:partnership_id/procedimentos/novo"
         component={ProceduresForm}
         isPrivate
+        permissions={[1]}
       />
       <Route
         exact
         path="/procedimentos/:id"
         component={ProceduresForm}
         isPrivate
+        permissions={[1]}
       />
 
       <Route
@@ -75,18 +114,28 @@ export default function Routes() {
         path="/profissionais"
         component={ProfessionalList}
         isPrivate
+        permissions={[1]}
       />
       <Route
         exact
         path="/profissionais/novo"
         component={ProfessionalForm}
         isPrivate
+        permissions={[1]}
       />
       <Route
         exact
         path="/profissionais/:id"
         component={ProfessionalForm}
         isPrivate
+        permissions={[1]}
+      />
+      <Route
+        exact
+        path="/profissionais/:id/usuario"
+        component={UsersForm}
+        isPrivate
+        permissions={[1]}
       />
 
       <Route
@@ -94,48 +143,156 @@ export default function Routes() {
         path="/:id/agenda"
         component={ProfessionalScheduleList}
         isPrivate
+        permissions={[1]}
       />
       <Route
         exact
         path="/:id/agenda/nova"
         component={ProfessionalScheduleForm}
         isPrivate
+        permissions={[1]}
       />
       <Route
         exact
         path="/:id/agenda/:agenda_id"
         component={ProfessionalScheduleForm}
         isPrivate
+        permissions={[1]}
       />
 
-      <Route exact path="/salas" component={RoomList} isPrivate />
-      <Route exact path="/salas/nova" component={RoomForm} isPrivate />
-      <Route exact path="/salas/:id" component={RoomForm} isPrivate />
+      <Route
+        exact
+        path="/salas"
+        component={RoomList}
+        isPrivate
+        isAdmin="1"
+        permissions={[1]}
+      />
+      <Route
+        exact
+        path="/salas/nova"
+        component={RoomForm}
+        isPrivate
+        permissions={[1]}
+      />
+      <Route
+        exact
+        path="/salas/:id"
+        component={RoomForm}
+        isPrivate
+        permissions={[1]}
+      />
 
       <Route
         exact
         path="/:id/procedimentos/alocar"
         component={ProceduresProfessionals}
         isPrivate
+        permissions={[1]}
       />
 
-      <Route exact path="/agendamentos" component={SchedulesList} isPrivate />
+      <Route
+        exact
+        path="/agendamentos"
+        component={SchedulesList}
+        isPrivate
+        permissions={[1, 3]}
+      />
+      <Route
+        exact
+        path="/agendamentos/novo"
+        component={SchedulesForm}
+        isPrivate
+        permissions={[1, 3]}
+      />
 
-      <Route exact path="/indicacoes" component={IndicationList} isPrivate />
+      <Route
+        exact
+        path="/indicacoes"
+        component={IndicationList}
+        isPrivate
+        permissions={[1]}
+      />
       <Route
         exact
         path="/indicacoes/nova"
         component={IndicationForm}
         isPrivate
+        permissions={[1]}
       />
       <Route
         exact
         path="/indicacoes/:id"
         component={IndicationForm}
         isPrivate
+        permissions={[1]}
       />
 
-      <Route path="/" component={() => <h1>404</h1>} />
+      <Route
+        exact
+        path="/pacientes/"
+        component={PatientList}
+        isPrivate
+        permissions={[1]}
+      />
+      <Route
+        exact
+        path="/pacientes/novo"
+        component={PatientForm}
+        isPrivate
+        permissions={[1]}
+      />
+      <Route
+        exact
+        path="/pacientes/:id"
+        component={PatientForm}
+        isPrivate
+        permissions={[1]}
+      />
+
+      <Route
+        exact
+        path="/contas/"
+        component={AccountList}
+        isPrivate
+        permissions={[1]}
+      />
+      <Route
+        exact
+        path="/contas/nova"
+        component={AccountForm}
+        isPrivate
+        permissions={[1]}
+      />
+      <Route
+        exact
+        path="/contas/:id"
+        component={AccountForm}
+        isPrivate
+        permissions={[1]}
+      />
+
+      <Route
+        exact
+        path="/movimentacoes/"
+        component={FinancialsList}
+        isPrivate
+        permissions={[1, 3]}
+      />
+      <Route
+        exact
+        path="/movimentacoes/nova"
+        component={FinancialsForm}
+        isPrivate
+        permissions={([1], 3)}
+      />
+      <Route
+        exact
+        path="/movimentacoes/:id"
+        component={FinancialsForm}
+        isPrivate
+        permissions={[1, 3]}
+      />
     </Switch>
   );
 }

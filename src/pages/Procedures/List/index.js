@@ -38,8 +38,8 @@ export default function ProceduresList({ match, location }) {
     history.push(`/procedimentos/${item.id}`);
   }
 
-  function handleRedirectToAllocate() {
-    history.push(`/${id}/procedimentos/alocar`);
+  function handleRedirectToAllocate(item) {
+    history.push(`/${item.id}/procedimentos/alocar`);
   }
 
   function handleChangeStatus(item) {

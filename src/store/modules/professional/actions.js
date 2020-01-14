@@ -22,6 +22,15 @@ export function saveProfessionalRequest(data) {
   };
 }
 
+export function saveUserRequest(data) {
+  return {
+    type: '@professionals/SAVE_USER_REQUEST',
+    payload: {
+      data,
+    },
+  };
+}
+
 export function getProfessionalsOptionsRequest() {
   return {
     type: '@professionals/GET_PROFESSIONALS_OPTIONS_REQUEST',
