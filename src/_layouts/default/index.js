@@ -10,9 +10,11 @@ import Navbar from '~/components/Navbar';
 export default function AuthLayout({ children }) {
   return (
     <Wrapper>
-      <ToastContainer autoClose={3000} />
       <Navbar />
-      <ContentWrapper>{children}</ContentWrapper>
+      <ContentWrapper>
+        <ToastContainer autoClose={3000} />
+        {children}
+      </ContentWrapper>
     </Wrapper>
   );
 }

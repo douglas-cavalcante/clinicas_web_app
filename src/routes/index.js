@@ -284,7 +284,7 @@ export default function Routes() {
         path="/movimentacoes/nova"
         component={FinancialsForm}
         isPrivate
-        permissions={([1], 3)}
+        permissions={[1, 3]}
       />
       <Route
         exact

@@ -29,7 +29,7 @@ export default function AccountList({ match }) {
   }, []);
 
   function handleRedirectToEditPage(item) {
-    history.push(`/accounts/${item.id}`);
+    history.push(`/contas/${item.id}`);
   }
 
   return (

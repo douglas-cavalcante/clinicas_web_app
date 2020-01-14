@@ -29,30 +29,15 @@ export default function Navbar() {
     <nav className="main-header navbar navbar-expand-md navbar-light navbar-primary">
       <div className="container">
         <a href="../../index3.html" className="navbar-brand">
-          <img
-            src="https://www.evolutioclinica.com.br/wp-content/uploads/2019/11/Logo-Evolutio-150x150.png"
-            alt="AdminLTE Logo"
-            className=" img-circle elevation-3"
-            style={{ width: '50px', background: '#FFF' }}
-          />
           <span className="brand-text font-weight-light ml-2 text-light">
             EVOLUTIO
           </span>
         </a>
 
-        <button
-          className="navbar-toggler order-1"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+        <div
+          className="collapse navbar-collapse order-3 show"
+          id="navbarCollapse"
         >
-          <span className="navbar-toggler-icon" />
-        </button>
-
-        <div className="collapse navbar-collapse order-3" id="navbarCollapse">
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link to="/" className="nav-link text-light">
