@@ -13,6 +13,7 @@ export default function Select({
   value,
   handleChangeValue,
   multiOptions,
+  disabled,
 }) {
   const animatedComponents = makeAnimated();
 
@@ -39,6 +40,7 @@ export default function Select({
             loadingMessage={() => 'Carregando ...'}
             noOptionsMessage={() => 'Opção não encontrada'}
             placeholder="Selecione"
+            disabled={disabled}
           />
         </div>
       </div>
@@ -85,6 +87,7 @@ export default function Select({
           loadingMessage={() => 'Carregando ...'}
           noOptionsMessage={() => 'Opção não encontrada'}
           placeholder="Selecione"
+          isDisabled={disabled}
         />
       </div>
     </div>
@@ -107,9 +110,11 @@ Select.propTypes = {
   /** Habilita a função de receber multiplas opções */
   multiOptions: PropTypes.bool,
   defaultValue: PropTypes.object,
+  disabled: PropTypes.bool,
 };
 
 Select.defaultProps = {
   label: '',
   multiOptions: false,
+  disabled: false,
 };
