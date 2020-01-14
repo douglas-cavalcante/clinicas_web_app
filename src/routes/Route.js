@@ -15,15 +15,17 @@ export default function RouteWrapper({
   ...rest
 }) {
   const { signed } = store.getState().auth;
-  const {
-    profile: { professional },
-  } = store.getState().user;
+  const { profile } = store.getState().user;
 
   if (!signed && isPrivate) {
     return <Redirect to="/" />;
   }
 
-  if (signed && !isPrivate && !permissions.includes(professional.role_id)) {
+  if (
+    signed &&
+    !isPrivate &&
+    !permissions.includes(profile.professional.role_id)
+  ) {
     return <Redirect to="/dashboard" />;
   }
 
@@ -31,8 +33,13 @@ export default function RouteWrapper({
     return <Redirect to="/dashboard" />;
   }
 
-  if (!permissions.includes(professional.role_id)) {
-    return <Redirect to="/dashboard" />;
+  if (profile && profile.professional) {
+    if (
+      profile.professional &&
+      !permissions.includes(profile.professional.role_id)
+    ) {
+      return <Redirect to="/dashboard" />;
+    }
   }
 
   const Layout = signed ? DefaultLayout : AuthLayout;
