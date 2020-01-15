@@ -88,7 +88,6 @@ export default function Select({
           loadingMessage={() => 'Carregando ...'}
           noOptionsMessage={() => 'Opção não encontrada'}
           placeholder="Selecione"
-          isDisabled={disabled}
         />
       </div>
     </div>
