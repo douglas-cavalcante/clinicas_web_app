@@ -237,7 +237,7 @@ export default function FinancialsForm({ match }) {
                       { value: '1', label: 'Entrada' },
                       { value: '2', label: 'Saída' },
                     ]}
-                    disabled
+                    disabled={id}
                   />
                   <Select
                     label="Conta"
@@ -246,7 +246,7 @@ export default function FinancialsForm({ match }) {
                     handleChangeValue={formik.setFieldValue}
                     name="account_id"
                     options={accountsOptions}
-                    disabled
+                    disabled={id}
                   />
                 </Row>
                 <Description
@@ -258,7 +258,7 @@ export default function FinancialsForm({ match }) {
                     />
                   }
                   title="Dados da movimentação"
-                  disabled
+                  disabled={id}
                 />
 
                 <Row>
@@ -270,7 +270,7 @@ export default function FinancialsForm({ match }) {
                       name="value"
                       value={formik.values.value}
                       onChange={formik.setFieldValue}
-                      disabled
+                      disabled={id}
                     />
                   )}
 
@@ -282,7 +282,7 @@ export default function FinancialsForm({ match }) {
                       name="value"
                       value={formik.values.value}
                       onChange={formik.setFieldValue}
-                      disabled
+                      disabled={id}
                     />
                   )}
 
@@ -294,7 +294,7 @@ export default function FinancialsForm({ match }) {
                     name="date"
                     value={formik.values.date}
                     onChange={formik.handleChange}
-                    disabled
+                    disabled={id}
                   />
 
                   <CreatableSelect
@@ -310,7 +310,7 @@ export default function FinancialsForm({ match }) {
                     options={creditorsDebtorsOptions}
                     handleCreate={handleCreateCreditorDebtorOption}
                     loadOptions={loadMovementCategoriesOptions}
-                    disabled
+                    disabled={id}
                   />
                 </Row>
                 <Row>
@@ -323,7 +323,7 @@ export default function FinancialsForm({ match }) {
                     options={movementCategoriesOptions}
                     handleCreate={handleCreateMovementCategoryOption}
                     loadOptions={loadMovementCategoriesOptions}
-                    disabled
+                    disabled={id}
                   />
                   <Select
                     label="Recorrência"
@@ -332,7 +332,7 @@ export default function FinancialsForm({ match }) {
                     handleChangeValue={formik.setFieldValue}
                     name="type_id"
                     options={typesOptions}
-                    disabled
+                    disabled={id}
                   />
                 </Row>
                 <Row>
@@ -344,7 +344,7 @@ export default function FinancialsForm({ match }) {
                     value={formik.values.observations}
                     placeholder="Digite observações relevantes para essa movimentação."
                     onChange={formik.handleChange}
-                    disabled
+                    disabled={id}
                   />
                 </Row>
               </CardBody>
