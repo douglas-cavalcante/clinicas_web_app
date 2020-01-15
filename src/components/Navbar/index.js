@@ -28,11 +28,11 @@ export default function Navbar() {
   return (
     <nav className="main-header navbar navbar-expand-md navbar-light navbar-primary">
       <div className="container">
-        <a href="../../index3.html" className="navbar-brand">
-          <span className="brand-text font-weight-light ml-2 text-light">
+        <Link to="/dashboard" className="navbar-brand">
+          <span className="brand-text font-weight-bold ml-2 text-light">
             EVOLUTIO
           </span>
-        </a>
+        </Link>
 
         <div
           className="collapse navbar-collapse order-3 show"
@@ -41,7 +41,7 @@ export default function Navbar() {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link to="/" className="nav-link text-light">
-                Home
+                Dashboard
               </Link>
             </li>
 

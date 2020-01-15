@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ToastContainer } from 'react-toastify';
 
 export default function AuthLayout({ children }) {
-  return <div className="hold-transition login-page">{children}</div>;
+  return (
+    <div
+      className="hold-transition login-page"
+      style={{ background: '#F7F7F7' }}
+    >
+      {children}
+    </div>
+  );
 }
 
 AuthLayout.propTypes = {

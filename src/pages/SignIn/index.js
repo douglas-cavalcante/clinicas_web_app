@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 
+import logo from '~/assets/logo.jpeg';
+
 import Input from '~/components/Form/Input';
 
 import { signInRequest } from '~/store/modules/auth/actions';
@@ -36,8 +38,9 @@ export default function SignIn() {
       <div className="login-logo">
         <div className="text-center">
           <img
-            src="https://www.evolutioclinica.com.br/wp-content/uploads/2019/11/Logo-Evolutio-150x150.png"
-            className="rounded"
+            src={logo}
+            className="rounded ml-4"
+            style={{ width: '300px' }}
             alt="..."
           />
         </div>
