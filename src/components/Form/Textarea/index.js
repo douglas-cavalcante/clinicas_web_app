@@ -24,7 +24,7 @@ export default function Textarea({
           onChange={onChange}
           placeholder={placeholder}
           rows="3"
-          disabled
+          disabled={disabled}
         />
       </div>
     </div>

@@ -42,13 +42,13 @@ export default function SchedulesList() {
   const formik = useFormik({
     initialValues: {
       // tipo de usuário
-      date: new Date(),
+      currentDate: new Date(),
       professional_id: null,
     },
     onSubmit: values => {
       dispatch(
         getSchedulesRequest({
-          date: values.date,
+          date: values.currentDate,
         })
       );
     },
@@ -57,8 +57,11 @@ export default function SchedulesList() {
   const professional = useSelector(state => state.professional);
   const schedule = useSelector(state => state.schedule);
 
-  function handleRedirectToEditPage(item) {
-    history.push(`/procedimentos/${item.id}`);
+  function handleRedirectToForm(item) {
+    history.push(`/agendamentos/novo`, {
+      currentDate: formik.values.currentDate,
+      item,
+    });
   }
 
   useEffect(() => {
@@ -79,9 +82,9 @@ export default function SchedulesList() {
             <Row>
               <div className="col-md-6">
                 <DatePickerInput
-                  name="date"
+                  name="currentDate"
                   onChange={formik.setFieldValue}
-                  value={formik.values.date}
+                  value={formik.values.currentDate}
                 />
               </div>
               <div className="col-md-6">
@@ -108,7 +111,7 @@ export default function SchedulesList() {
               {
                 text: 'Agendar',
                 className: 'btn btn-sm btn-info',
-                onClick: handleRedirectToEditPage,
+                onClick: handleRedirectToForm,
                 buttonText: 'Agendar',
                 keyConditionButtonText: null,
               },
