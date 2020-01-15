@@ -84,7 +84,7 @@ export default function ProceduresList({ match, location }) {
                 keyConditionButtonText: 'status',
               },
               {
-                text: 'Professionais',
+                text: 'Profissionais',
                 className: 'btn btn-sm btn-warning',
                 onClick: handleRedirectToAllocate,
                 buttonText: 'Alocar',
