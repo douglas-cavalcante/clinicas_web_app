@@ -28,11 +28,23 @@ const columns = [
   },
   {
     dataField: 'date',
-    text: 'Data',
+    text: 'Agendada',
   },
   {
     dataField: 'room',
     text: 'Sala',
+  },
+  {
+    dataField: 'created_at',
+    text: 'Aberta em',
+  },
+  {
+    dataField: 'first_phone',
+    text: 'Telefone',
+  },
+  {
+    dataField: 'responsible',
+    text: 'Responsável',
   },
 ];
 
