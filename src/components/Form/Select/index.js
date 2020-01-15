@@ -59,6 +59,7 @@ export default function Select({
           onChange={handleChangeSelect}
           name={name}
           options={options}
+          isDisabled={disabled}
           className="basic-multi-select"
           classNamePrefix="select"
           theme="primary75"

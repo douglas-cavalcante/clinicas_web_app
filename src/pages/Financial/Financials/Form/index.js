@@ -22,6 +22,7 @@ import MoneyInput from '~/components/Form/MoneyInput';
 import CreatableSelect from '~/components/Form/CreatableSelect/CreatableSelect';
 import Select from '~/components/Form/Select';
 import { saveFinancialRequest } from '~/store/modules/financial/financials/actions';
+import Show from '~/components/Show';
 
 export default function FinancialsForm({ match }) {
   const id = useMemo(() => match.params.id, [match.params.id]);
@@ -211,13 +212,19 @@ export default function FinancialsForm({ match }) {
 
   return (
     <>
-      <Header title="Nova Movimentação" />
+      <Header title={id ? 'Movimentação' : 'Nova Movimentação'} />
 
       <div className="content">
         <div className="container">
           <Card>
             <form onSubmit={formik.handleSubmit}>
-              <CardHeader description="Adicione um nova movimentação de entrada ou saída" />
+              <CardHeader
+                description={
+                  id
+                    ? 'Detalhes da movimentação'
+                    : 'Adicione um nova movimentação de entrada ou saída'
+                }
+              />
               <CardBody>
                 <Row>
                   <Select
@@ -230,6 +237,7 @@ export default function FinancialsForm({ match }) {
                       { value: '1', label: 'Entrada' },
                       { value: '2', label: 'Saída' },
                     ]}
+                    disabled
                   />
                   <Select
                     label="Conta"
@@ -238,6 +246,7 @@ export default function FinancialsForm({ match }) {
                     handleChangeValue={formik.setFieldValue}
                     name="account_id"
                     options={accountsOptions}
+                    disabled
                   />
                 </Row>
                 <Description
@@ -249,6 +258,7 @@ export default function FinancialsForm({ match }) {
                     />
                   }
                   title="Dados da movimentação"
+                  disabled
                 />
 
                 <Row>
@@ -260,6 +270,7 @@ export default function FinancialsForm({ match }) {
                       name="value"
                       value={formik.values.value}
                       onChange={formik.setFieldValue}
+                      disabled
                     />
                   )}
 
@@ -271,6 +282,7 @@ export default function FinancialsForm({ match }) {
                       name="value"
                       value={formik.values.value}
                       onChange={formik.setFieldValue}
+                      disabled
                     />
                   )}
 
@@ -282,6 +294,7 @@ export default function FinancialsForm({ match }) {
                     name="date"
                     value={formik.values.date}
                     onChange={formik.handleChange}
+                    disabled
                   />
 
                   <CreatableSelect
@@ -297,6 +310,7 @@ export default function FinancialsForm({ match }) {
                     options={creditorsDebtorsOptions}
                     handleCreate={handleCreateCreditorDebtorOption}
                     loadOptions={loadMovementCategoriesOptions}
+                    disabled
                   />
                 </Row>
                 <Row>
@@ -309,6 +323,7 @@ export default function FinancialsForm({ match }) {
                     options={movementCategoriesOptions}
                     handleCreate={handleCreateMovementCategoryOption}
                     loadOptions={loadMovementCategoriesOptions}
+                    disabled
                   />
                   <Select
                     label="Recorrência"
@@ -317,6 +332,7 @@ export default function FinancialsForm({ match }) {
                     handleChangeValue={formik.setFieldValue}
                     name="type_id"
                     options={typesOptions}
+                    disabled
                   />
                 </Row>
                 <Row>
@@ -328,6 +344,7 @@ export default function FinancialsForm({ match }) {
                     value={formik.values.observations}
                     placeholder="Digite observações relevantes para essa movimentação."
                     onChange={formik.handleChange}
+                    disabled
                   />
                 </Row>
               </CardBody>
@@ -340,9 +357,11 @@ export default function FinancialsForm({ match }) {
                 >
                   Voltar
                 </button>
-                <button type="submit" className="btn btn-success float-right">
-                  {id ? 'Atualizar' : 'Cadastrar'}
-                </button>
+                <Show display={!id}>
+                  <button type="submit" className="btn btn-success float-right">
+                    Cadastrar
+                  </button>
+                </Show>
               </CardFooter>
             </form>
           </Card>

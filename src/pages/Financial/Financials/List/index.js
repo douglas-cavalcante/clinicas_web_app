@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import PropTypes from 'prop-types';
@@ -39,7 +39,7 @@ export default function FinancialsList() {
     dispatch(getFinancialsRequest());
   }, []);
 
-  function handleRedirectToEditPage(item) {
+  function handleRedirectToShowPage(item) {
     history.push(`/movimentacoes/${item.id}`);
   }
 
@@ -115,10 +115,10 @@ export default function FinancialsList() {
             columns={columns}
             extrasColumns={[
               {
-                text: 'Editar',
+                text: 'Visualizar',
                 className: 'btn btn-sm btn-info',
-                onClick: handleRedirectToEditPage,
-                buttonText: 'Editar',
+                onClick: handleRedirectToShowPage,
+                buttonText: 'Ver',
                 keyConditionButtonText: null,
               },
             ]}

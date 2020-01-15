@@ -9,7 +9,7 @@ export default function Textarea({
   name,
   onChange,
   id,
-
+  disabled,
   placeholder,
 }) {
   return (
@@ -24,6 +24,7 @@ export default function Textarea({
           onChange={onChange}
           placeholder={placeholder}
           rows="3"
+          disabled
         />
       </div>
     </div>
@@ -38,4 +39,5 @@ Textarea.propTypes = {
   onChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };

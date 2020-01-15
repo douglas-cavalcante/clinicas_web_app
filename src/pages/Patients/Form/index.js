@@ -296,7 +296,7 @@ export default function PatientForm({ match }) {
         toast.success(`${inputValue} adicionado`);
         formik.setValues({
           ...formik.values,
-          ocupation_id: response.data,
+          indication_id: response.data,
         });
       })
       .catch(() => {

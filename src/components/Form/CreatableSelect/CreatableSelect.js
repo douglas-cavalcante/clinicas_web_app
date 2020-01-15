@@ -13,6 +13,7 @@ export default function CreatableSelect({
   value,
   handleChangeValue,
   handleCreate,
+  disabled,
 }) {
   const animatedComponents = makeAnimated();
 
@@ -36,6 +37,7 @@ export default function CreatableSelect({
           className="basic-multi-select"
           classNamePrefix="select"
           theme="primary75"
+          isDisabled={disabled}
           styles={{
             control: styles => ({
               ...styles,

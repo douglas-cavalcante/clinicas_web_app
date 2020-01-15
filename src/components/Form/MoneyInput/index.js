@@ -16,7 +16,15 @@ const currencyConfig = {
   },
 };
 
-export default function MoneyInput({ label, value, name, onChange, id, col }) {
+export default function MoneyInput({
+  label,
+  value,
+  name,
+  onChange,
+  id,
+  col,
+  disabled,
+}) {
   function handleChange(event, money) {
     event.preventDefault();
     onChange(name, money);
@@ -35,6 +43,7 @@ export default function MoneyInput({ label, value, name, onChange, id, col }) {
           defaultValue={value}
           name={name}
           className="form-control"
+          disabled={disabled}
         />
       </div>
     </div>
@@ -48,4 +57,5 @@ MoneyInput.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 };
