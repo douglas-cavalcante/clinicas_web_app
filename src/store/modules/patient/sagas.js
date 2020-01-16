@@ -8,6 +8,7 @@ import {
   patientFailure,
   getPatientsSuccess,
   getPatientsOptionsSuccess,
+  getPatientsOptionsRequest,
 } from './actions';
 
 export function* savePatient({ payload }) {
@@ -22,6 +23,17 @@ export function* savePatient({ payload }) {
       toast.success('Paciente atualizado com sucesso !');
       history.goBack();
     }
+  } catch (error) {
+    toast.error('Houve um erro ao tentar atualizar.');
+    yield put(patientFailure());
+  }
+}
+
+export function* savePrePatient({ payload }) {
+  try {
+    yield call(api.post, 'patients', payload.data);
+    toast.success('Paciente cadastrado com sucesso !');
+    yield put(getPatientsOptionsRequest());
   } catch (error) {
     toast.error('Houve um erro ao tentar atualizar.');
     yield put(patientFailure());
@@ -51,5 +63,6 @@ export function* getPatientsOptions() {
 export default all([
   takeLatest('@patient/GET_PATIENTS_REQUEST', getPatients),
   takeLatest('@patient/SAVE_PATIENT_REQUEST', savePatient),
+  takeLatest('@patient/SAVE_PRE_PATIENT_REQUEST', savePrePatient),
   takeLatest('@patient/GET_PATIENTS_OPTIONS_REQUEST', getPatientsOptions),
 ]);

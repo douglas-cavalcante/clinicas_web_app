@@ -80,6 +80,8 @@ export default function ProfessionalForm({ match }) {
         toast.error('Data de aniversário é obrigatória');
       } else if (!values.first_phone) {
         toast.error('Primeiro telefone é obrigatória');
+      } else if (!values.ocupation_id) {
+        toast.error('A ocupação é obrigatória');
       } else {
         dispatch(
           saveProfessionalRequest({

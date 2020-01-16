@@ -14,6 +14,15 @@ export function getSchedulesSuccess(data) {
   };
 }
 
+export function saveScheduleRequest(data) {
+  return {
+    type: '@schedules/SAVE_SCHEDULE_REQUEST',
+    payload: {
+      data,
+    },
+  };
+}
+
 export function scheduleFailure() {
   return {
     type: '@schedules/REQUEST_FAILURE',

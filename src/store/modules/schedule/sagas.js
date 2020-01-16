@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 
 import { getSchedulesSuccess, scheduleFailure } from './actions';
+import history from '~/services/history';
 
 export function* getSchedules({ payload }) {
   try {
@@ -15,6 +16,18 @@ export function* getSchedules({ payload }) {
   }
 }
 
+export function* saveSchedule({ payload }) {
+  try {
+    yield call(api.post, 'schedules/new', payload.data);
+    toast.success('Agendando com sucesso !');
+    history.goBack();
+  } catch (error) {
+    toast.error('Houve um erro ao tentar atualizar.');
+    yield put(scheduleFailure());
+  }
+}
+
 export default all([
   takeLatest('@schedules/GET_SCHEDULE_REQUEST', getSchedules),
+  takeLatest('@schedules/SAVE_SCHEDULE_REQUEST', saveSchedule),
 ]);

@@ -36,6 +36,7 @@ import AccountForm from '~/pages/Financial/Accounts/Form';
 import FinancialsForm from '~/pages/Financial/Financials/Form';
 import FinancialsList from '~/pages/Financial/Financials/List';
 import UsersForm from '~/pages/Users';
+import AuthorizationForm from '~/pages/Schedule/autorization/Form';
 
 export default function Routes() {
   return (
@@ -47,7 +48,7 @@ export default function Routes() {
         path="/dashboard"
         component={Dashboard}
         isPrivate
-        permissions={[1, 3]}
+        permissions={[1, 2.3, 4, 5]}
       />
 
       <Route
@@ -202,6 +203,14 @@ export default function Routes() {
         exact
         path="/agendamentos/novo"
         component={SchedulesForm}
+        isPrivate
+        permissions={[1, 3]}
+      />
+
+      <Route
+        exact
+        path="/agendamentos/:id/autorizacao"
+        component={AuthorizationForm}
         isPrivate
         permissions={[1, 3]}
       />

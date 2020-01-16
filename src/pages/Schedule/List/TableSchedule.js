@@ -5,8 +5,14 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import Show from '~/components/Show';
 
-export default function Table({ data, columns, extrasColumns, keyField }) {
+export default function TableSchedule({
+  data,
+  columns,
+  extrasColumns,
+  keyField,
+}) {
   function customColumns(column, colIndex, { sortElement, filterElement }) {
     return (
       <div
@@ -19,7 +25,6 @@ export default function Table({ data, columns, extrasColumns, keyField }) {
       >
         {filterElement}
         {column.text}
-        {sortElement}
       </div>
     );
   }
@@ -34,14 +39,18 @@ export default function Table({ data, columns, extrasColumns, keyField }) {
           headerStyle: () => ({ width: '10%', whiteSpace: 'wrap' }),
 
           formatter: (cell, row) => (
-            <button
-              key={row.id}
-              type="button"
-              className={item.className}
-              onClick={() => item.onClick(row)}
-            >
-              {!item.keyConditionButtonText && item.buttonText}
-            </button>
+            <>
+              <Show display={row.status === item.status}>
+                <button
+                  key={row.id}
+                  type="button"
+                  className={item.className}
+                  onClick={() => item.onClick(row)}
+                >
+                  {item.buttonText}
+                </button>
+              </Show>
+            </>
           ),
         };
       }
@@ -77,6 +86,19 @@ export default function Table({ data, columns, extrasColumns, keyField }) {
     return [...parseColumns, ...newColumns];
   }
 
+  const rowStyle2 = (row, rowIndex) => {
+    const style = {};
+    if (row.status === 'Cancelado') {
+      style.color = 'tomato';
+    } else if (row.status === 'Confirmado') {
+      style.color = '#218838';
+    } else if (row.status === 'Autorizado') {
+      style.color = '#007BFF';
+    }
+
+    return style;
+  };
+
   return (
     <ToolkitProvider
       keyField={keyField}
@@ -94,6 +116,7 @@ export default function Table({ data, columns, extrasColumns, keyField }) {
             filter={filterFactory()}
             pagination={paginationFactory()}
             noDataIndication="Sem resultados"
+            rowStyle={rowStyle2}
           />
         </>
       )}
@@ -101,14 +124,14 @@ export default function Table({ data, columns, extrasColumns, keyField }) {
   );
 }
 
-Table.propTypes = {
+TableSchedule.propTypes = {
   keyField: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object),
   columns: PropTypes.arrayOf(PropTypes.object).isRequired,
   extrasColumns: PropTypes.arrayOf(PropTypes.object),
 };
 
-Table.defaultProps = {
+TableSchedule.defaultProps = {
   data: [],
   extrasColumns: [],
 };

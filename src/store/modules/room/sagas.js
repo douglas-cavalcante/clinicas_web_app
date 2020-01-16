@@ -23,6 +23,7 @@ export function* saveRoom({ payload }) {
     yield put(roomsFailure());
   }
 }
+
 export function* getRooms({ payload }) {
   try {
     const response = yield call(api.get, `rooms?id=${payload.id}`);

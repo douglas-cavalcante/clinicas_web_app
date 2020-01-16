@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   data: [],
   loading: false,
   options: [],
+  addPatientMode: false,
 };
 
 export default function patient(state = INITIAL_STATE, action) {
@@ -26,6 +27,11 @@ export default function patient(state = INITIAL_STATE, action) {
         draft.options = action.payload.data;
         break;
       }
+      case '@patient/CHANGE_MODE': {
+        draft.addPatientMode = !state.addPatientMode;
+        break;
+      }
+
       case '@patient/REQUEST_FAILURE': {
         draft.loading = false;
         break;

@@ -22,6 +22,22 @@ export function savePatientRequest(data) {
   };
 }
 
+export function savePrePatientRequest(data) {
+  return {
+    type: '@patient/SAVE_PRE_PATIENT_REQUEST',
+    payload: {
+      data,
+    },
+  };
+}
+
+export function changeModeRequest() {
+  return {
+    type: '@patient/CHANGE_MODE',
+    payload: {},
+  };
+}
+
 export function getPatientsOptionsRequest() {
   return {
     type: '@patient/GET_PATIENTS_OPTIONS_REQUEST',

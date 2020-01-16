@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { useFormik } from 'formik';
 import PropTypes from 'prop-types';
@@ -23,6 +23,13 @@ import Select from '~/components/Form/Select';
 import MoneyInput from '~/components/Form/MoneyInput';
 
 import Textarea from '~/components/Form/Textarea';
+import Show from '~/components/Show';
+import {
+  savePrePatientRequest,
+  changeModeRequest,
+} from '~/store/modules/patient/actions';
+import { saveScheduleRequest } from '~/store/modules/schedule/actions';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 export default function SchedulesForm({ match, location }) {
   const dispatch = useDispatch();
@@ -34,25 +41,65 @@ export default function SchedulesForm({ match, location }) {
   const [partnershipsOptions, setPartnershipsOptions] = useState([]);
   const [patientsOptions, setPatientsOptions] = useState([]);
 
+  const addPatientMode = useSelector(state => state.patient.addPatientMode);
+
   const formik = useFormik({
     enableReinitialize: true,
 
     initialValues: {
-      id: '',
       patient_id: '',
       partnership_id: null,
       professional_id: null,
       procedure_id: null,
       value: '',
-      value_tranferred: '',
+      value_transferred: '',
       observations: '',
     },
 
     onSubmit: values => {
-      if (!values.name) {
-        toast.error('O nome da indicação é obrigatório');
+      if (!values.procedure_id) {
+        toast.error('O nome do procedimento é obrigatório');
+      } else if (!values.patient_id) {
+        toast.error('O nome do paciente é obrigatório');
       } else {
-        dispatch(saveIndicationRequest({ ...values }));
+        dispatch(
+          saveScheduleRequest({
+            ...values,
+            patient_id: values.patient_id.value,
+            partnership_id: values.partnership_id.value,
+            procedure_id: values.procedure_id.value,
+            professional_id: data.item.professional_id,
+            date: zonedTimeToUtc(data.currentDate, 'America/Sao_Paulo'),
+            room_id: data.item.room_id,
+            start: data.item.start,
+          })
+        );
+      }
+    },
+  });
+
+  async function loadPatientsOptions() {
+    await api
+      .get(`patients/options`)
+      .then(response => {
+        setPatientsOptions(response.data);
+      })
+      .catch(() => {});
+  }
+
+  const formikAddUser = useFormik({
+    initialValues: {
+      name: '',
+      date_birth: '',
+      first_phone: '',
+    },
+
+    onSubmit: values => {
+      if (!values.name || !values.date_birth || !values.first_phone) {
+        toast.error('Todos os dados são obrigatórios');
+      } else {
+        dispatch(savePrePatientRequest({ ...values }));
+        formikAddUser.setValues({ name: '', date_birth: '', first_phone: '' });
       }
     },
   });
@@ -66,20 +113,15 @@ export default function SchedulesForm({ match, location }) {
       .catch(() => {});
   }
 
-  async function loadPatientsOptions() {
-    await api
-      .get(`patients/options`)
-      .then(response => {
-        setPatientsOptions(response.data);
-      })
-      .catch(() => {});
-  }
-
   useEffect(() => {
     dispatch(getProfessionalsOptionsRequest());
     getProceduresOptions();
     loadPatientsOptions();
   }, []);
+
+  useEffect(() => {
+    loadPatientsOptions();
+  }, [addPatientMode]);
 
   useEffect(() => {
     async function loadOptionsProcedures() {
@@ -113,7 +155,7 @@ export default function SchedulesForm({ match, location }) {
             formik.setValues({
               ...formik.values,
               value: response.data.value,
-              value_tranferred: response.data.value_tranferred,
+              value_transferred: response.data.value_transferred,
             });
           })
           .catch(() => {});
@@ -129,98 +171,172 @@ export default function SchedulesForm({ match, location }) {
       <div className="content">
         <div className="container">
           <Card>
-            <form onSubmit={formik.handleSubmit}>
-              <CardHeader
-                description={`Doutor(a): ${data &&
-                  data.item.professional_name} | ${data.currentDate &&
-                  format(new Date(data.currentDate), 'dd-MM-yyyy')} às ${data
-                  .item.start && data.item.start} | ${data.item.room}`}
-              />
-              <CardBody>
-                <Description
-                  icon={<MdPeople color="#495057" size={30} className="mr-2" />}
-                  title="Dados do Paciente"
+            <Show display={!addPatientMode}>
+              <form onSubmit={formik.handleSubmit}>
+                <CardHeader
+                  description={`Doutor(a): ${data &&
+                    data.item.professional_name} | ${data.currentDate &&
+                    format(new Date(data.currentDate), 'dd-MM-yyyy')} às ${data
+                    .item.start && data.item.start} | ${data.item.room}`}
                 />
-
-                <Row>
-                  <Select
-                    label="Paciente"
-                    col="12"
-                    value={formik.values.patient_id}
-                    handleChangeValue={formik.setFieldValue}
-                    name="patient_id"
-                    options={patientsOptions}
-                  />
-                </Row>
-
-                <Row>
-                  <Select
-                    label="Convênio"
-                    col="4"
-                    value={formik.values.partnership_id}
-                    handleChangeValue={formik.setFieldValue}
-                    name="partnership_id"
-                    options={partnershipsOptions}
-                  />
-                  <Select
-                    label="Procedimentos"
-                    col="4"
-                    value={formik.values.procedure_id}
-                    handleChangeValue={formik.setFieldValue}
-                    name="procedure_id"
-                    options={proceduresOptions}
-                    disabled={!formik.values.partnership_id}
+                {formik.values.value_transferred}
+                <CardBody>
+                  <Description
+                    icon={
+                      <MdPeople color="#495057" size={30} className="mr-2" />
+                    }
+                    title="Dados do Paciente"
                   />
 
-                  {!formik.values.value && (
-                    <MoneyInput
-                      col="4"
-                      label="Valor"
-                      id="inputValue"
-                      name="value"
-                      value={formik.values.value}
-                      onChange={formik.setFieldValue}
-                      disabled
+                  <span
+                    className="mb-4"
+                    style={{
+                      color: '#007BFF',
+                      textDecoration: 'underline',
+                    }}
+                    onClick={() => dispatch(changeModeRequest())}
+                  >
+                    Não encontrou o paciente ? Adicione um novo agora mesmo.
+                  </span>
+
+                  <Row>
+                    <Select
+                      label="Paciente"
+                      col="12"
+                      value={formik.values.patient_id}
+                      handleChangeValue={formik.setFieldValue}
+                      name="patient_id"
+                      options={patientsOptions}
                     />
-                  )}
+                  </Row>
 
-                  {formik.values.value && (
-                    <MoneyInput
+                  <Row>
+                    <Select
+                      label="Convênio"
                       col="4"
-                      label="Valor"
-                      id="inputValue"
-                      name="value"
-                      value={formik.values.value}
-                      disabled
+                      value={formik.values.partnership_id}
+                      handleChangeValue={formik.setFieldValue}
+                      name="partnership_id"
+                      options={partnershipsOptions}
                     />
-                  )}
-                </Row>
-                <Row>
-                  <Textarea
-                    col="12"
-                    label="Observações"
-                    id="inputDescription"
-                    name="observations"
-                    value={formik.values.observations}
-                    placeholder="Digite observações relevantes para esse agendamento."
-                    onChange={formik.handleChange}
-                  />
-                </Row>
-              </CardBody>
+                    <Select
+                      label="Procedimentos"
+                      col="4"
+                      value={formik.values.procedure_id}
+                      handleChangeValue={formik.setFieldValue}
+                      name="procedure_id"
+                      options={proceduresOptions}
+                      disabled={!formik.values.partnership_id}
+                    />
 
-              <CardFooter>
-                <button
-                  type="button"
-                  className="btn btn-default"
-                  onClick={() => history.goBack()}
-                >
-                  Voltar
-                </button>
-                <button type="submit" className="btn btn-success float-right">
-                  {id ? 'Atualizar' : 'Cadastrar'}
-                </button>
-              </CardFooter>
-            </form>
+                    {!formik.values.value && (
+                      <MoneyInput
+                        col="4"
+                        label="Valor"
+                        id="inputValue"
+                        name="value"
+                        value={formik.values.value}
+                        onChange={formik.setFieldValue}
+                        disabled
+                      />
+                    )}
+
+                    {formik.values.value && (
+                      <MoneyInput
+                        col="4"
+                        label="Valor"
+                        id="inputValue"
+                        name="value"
+                        value={formik.values.value}
+                        disabled
+                      />
+                    )}
+                  </Row>
+                  <Row>
+                    <Textarea
+                      col="12"
+                      label="Observações"
+                      id="inputDescription"
+                      name="observations"
+                      value={formik.values.observations}
+                      placeholder="Digite observações relevantes para esse agendamento."
+                      onChange={formik.handleChange}
+                    />
+                  </Row>
+                </CardBody>
+
+                <CardFooter>
+                  <button
+                    type="button"
+                    className="btn btn-default"
+                    onClick={() => history.goBack()}
+                  >
+                    Voltar
+                  </button>
+                  <button type="submit" className="btn btn-success float-right">
+                    {id ? 'Atualizar' : 'Cadastrar'}
+                  </button>
+                </CardFooter>
+              </form>
+            </Show>
+
+            <Show display={addPatientMode}>
+              <form onSubmit={formikAddUser.handleSubmit}>
+                <CardHeader description="Formulário de pré-cadastro do paciente" />
+                <CardBody>
+                  <Description
+                    icon={
+                      <MdPeople color="#495057" size={30} className="mr-2" />
+                    }
+                    title="Dados do Paciente"
+                  />
+                  <Row>
+                    <Input
+                      col="4"
+                      label="Nome *"
+                      id="inputName"
+                      type="text"
+                      name="name"
+                      value={formikAddUser.values.name}
+                      onChange={formikAddUser.handleChange}
+                    />
+
+                    <Input
+                      col="3"
+                      label="Data de Nascimento *"
+                      id="date_birth"
+                      type="date"
+                      name="date_birth"
+                      value={formikAddUser.values.date_birth}
+                      onChange={formikAddUser.handleChange}
+                    />
+                    <Input
+                      col="4"
+                      label="Contato *"
+                      id="inputFirstPhone"
+                      type="text"
+                      name="first_phone"
+                      value={formikAddUser.values.first_phone}
+                      onChange={formikAddUser.handleChange}
+                      mask="(99) 99999-9999"
+                    />
+                  </Row>
+                </CardBody>
+
+                <CardFooter>
+                  <button
+                    type="button"
+                    className="btn btn-default"
+                    onClick={() => dispatch(changeModeRequest())}
+                  >
+                    Voltar
+                  </button>
+                  <button type="submit" className="btn btn-success float-right">
+                    Adicionar
+                  </button>
+                </CardFooter>
+              </form>
+            </Show>
           </Card>
         </div>
       </div>
