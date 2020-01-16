@@ -49,7 +49,7 @@ export default function Routes() {
         path="/dashboard"
         component={Dashboard}
         isPrivate
-        permissions={[1, 2.3, 4, 5]}
+        permissions={[1, 2, 3, 4, 5]}
       />
 
       <Route
@@ -198,14 +198,14 @@ export default function Routes() {
         path="/agendamentos"
         component={SchedulesList}
         isPrivate
-        permissions={[1, 3]}
+        permissions={[1, 2, 3]}
       />
       <Route
         exact
         path="/agendamentos/novo"
         component={SchedulesForm}
         isPrivate
-        permissions={[1, 3]}
+        permissions={[1, 2, 3]}
       />
 
       <Route
@@ -213,7 +213,7 @@ export default function Routes() {
         path="/agendamentos/:id/autorizacao"
         component={AuthorizationForm}
         isPrivate
-        permissions={[1, 3]}
+        permissions={[1, 2, 3]}
       />
 
       <Route
@@ -221,7 +221,7 @@ export default function Routes() {
         path="/meus_agendamentos"
         component={MySchedules}
         isPrivate
-        permissions={[1, 3, 4, 5]}
+        permissions={[1, 4, 5]}
       />
 
       <Route
@@ -251,21 +251,21 @@ export default function Routes() {
         path="/pacientes/"
         component={PatientList}
         isPrivate
-        permissions={[1]}
+        permissions={[1, 2, 3]}
       />
       <Route
         exact
         path="/pacientes/novo"
         component={PatientForm}
         isPrivate
-        permissions={[1]}
+        permissions={[1, 2, 3]}
       />
       <Route
         exact
         path="/pacientes/:id"
         component={PatientForm}
         isPrivate
-        permissions={[1]}
+        permissions={[1, 2, 3]}
       />
 
       <Route

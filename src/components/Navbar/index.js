@@ -178,7 +178,6 @@ export default function Navbar() {
             </li>
             <Show
               display={
-                profile.professional.role_id == '1' ||
                 profile.professional.role_id == '5' ||
                 profile.professional.role_id == '4'
               }
