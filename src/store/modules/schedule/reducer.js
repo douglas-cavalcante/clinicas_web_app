@@ -19,6 +19,12 @@ export default function schedule(state = INITIAL_STATE, action) {
         break;
       }
 
+      case '@schedules/GET_MY_SCHEDULE_SUCCESS': {
+        draft.data = action.payload.data;
+        draft.loading = false;
+        break;
+      }
+
       case '@schedules/REQUEST_FAILURE': {
         draft.loading = false;
         break;

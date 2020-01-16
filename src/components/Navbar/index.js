@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { signOut } from '~/store/modules/auth/actions';
+import { store } from '~/store';
+import Show from '../Show';
 
 // import { Container } from './styles';
 
 export default function Navbar() {
   const dispatch = useDispatch();
+  const { profile } = store.getState().user;
 
   const user = useSelector(state => state.user);
 
@@ -172,6 +176,19 @@ export default function Navbar() {
                 </li>
               </ul>
             </li>
+            <Show
+              display={
+                profile.professional.role_id == '1' ||
+                profile.professional.role_id == '5' ||
+                profile.professional.role_id == '4'
+              }
+            >
+              <li className="nav-item">
+                <Link to="/meus_agendamentos" className="nav-link text-light">
+                  Meus agendamentos
+                </Link>
+              </li>
+            </Show>
             <li className="nav-link text-light" onClick={handleSignOut}>
               Sair
             </li>
