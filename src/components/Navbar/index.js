@@ -45,137 +45,152 @@ export default function Navbar() {
           <ul className="navbar-nav">
             <li className="nav-item">
               <Link to="/" className="nav-link text-light">
-                Dashboard
+                Home
               </Link>
             </li>
-
-            <li
-              className={`nav-item dropdown ${showDropdownOne ? 'show' : ''}`}
+            <Show
+              display={
+                profile.professional.role_id == '1' ||
+                profile.professional.role_id == '2' ||
+                profile.professional.role_id == '3'
+              }
             >
-              <a
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                className="nav-link dropdown-toggle text-light"
-                onClick={handleClickAgendamentos}
+              <li
+                className={`nav-item dropdown ${showDropdownOne ? 'show' : ''}`}
               >
-                Agendamentos
-              </a>
-              <ul
-                aria-labelledby="dropdownSubMenu1"
-                className={`dropdown-menu border-0 shadow ${
-                  showDropdownOne ? 'show' : ''
-                }`}
-              >
-                <li>
-                  <Link
-                    to="/convenios"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownOne(false)}
-                  >
-                    Convênios
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/profissionais"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownOne(false)}
-                  >
-                    Profissionais
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/pacientes"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownOne(false)}
-                  >
-                    Pacientes
-                  </Link>
-                </li>
+                <a
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  className="nav-link dropdown-toggle text-light"
+                  onClick={handleClickAgendamentos}
+                >
+                  Agendamentos
+                </a>
+                <ul
+                  aria-labelledby="dropdownSubMenu1"
+                  className={`dropdown-menu border-0 shadow ${
+                    showDropdownOne ? 'show' : ''
+                  }`}
+                >
+                  <li>
+                    <Link
+                      to="/convenios"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownOne(false)}
+                    >
+                      Convênios
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/profissionais"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownOne(false)}
+                    >
+                      Profissionais
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/pacientes"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownOne(false)}
+                    >
+                      Pacientes
+                    </Link>
+                  </li>
 
-                <li className="dropdown-divider" />
+                  <li className="dropdown-divider" />
 
-                <li>
-                  <Link
-                    to="/empresa"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownOne(false)}
-                  >
-                    Empresa
-                  </Link>
-                </li>
+                  <li>
+                    <Link
+                      to="/empresa"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownOne(false)}
+                    >
+                      Empresa
+                    </Link>
+                  </li>
 
-                <li>
-                  <Link
-                    to="/horarios"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownOne(false)}
-                  >
-                    Horários de funcionamento
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/salas"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownOne(false)}
-                  >
-                    Salas
-                  </Link>
-                </li>
-                <li className="dropdown-divider" />
+                  <li>
+                    <Link
+                      to="/horarios"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownOne(false)}
+                    >
+                      Horários de funcionamento
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/salas"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownOne(false)}
+                    >
+                      Salas
+                    </Link>
+                  </li>
+                  <li className="dropdown-divider" />
 
-                <li>
-                  <Link
-                    to="/agendamentos"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownOne(false)}
-                  >
-                    Agendamentos
-                  </Link>
-                </li>
-              </ul>
-            </li>
-            <li
-              className={`nav-item dropdown ${showDropdownTwo ? 'show' : ''}`}
+                  <li>
+                    <Link
+                      to="/agendamentos"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownOne(false)}
+                    >
+                      Agendamentos
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            </Show>
+
+            <Show
+              display={
+                profile.professional.role_id == '1' ||
+                profile.professional.role_id == '3'
+              }
             >
-              <a
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                className="nav-link dropdown-toggle text-light"
-                onClick={handleClickFinanceiro}
+              <li
+                className={`nav-item dropdown ${showDropdownTwo ? 'show' : ''}`}
               >
-                Financeiro
-              </a>
-              <ul
-                aria-labelledby="dropdownSubMenu1"
-                className={`dropdown-menu border-0 shadow ${
-                  showDropdownTwo ? 'show' : ''
-                }`}
-              >
-                <li>
-                  <Link
-                    to="/movimentacoes"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownTwo(false)}
-                  >
-                    Movimentações
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/contas"
-                    className="dropdown-item"
-                    onClick={() => setShowDropdownTwo(false)}
-                  >
-                    Contas
-                  </Link>
-                </li>
-              </ul>
-            </li>
+                <a
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  className="nav-link dropdown-toggle text-light"
+                  onClick={handleClickFinanceiro}
+                >
+                  Financeiro
+                </a>
+                <ul
+                  aria-labelledby="dropdownSubMenu1"
+                  className={`dropdown-menu border-0 shadow ${
+                    showDropdownTwo ? 'show' : ''
+                  }`}
+                >
+                  <li>
+                    <Link
+                      to="/movimentacoes"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownTwo(false)}
+                    >
+                      Movimentações
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/contas"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownTwo(false)}
+                    >
+                      Contas
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            </Show>
             <Show
               display={
                 profile.professional.role_id == '5' ||
@@ -184,7 +199,7 @@ export default function Navbar() {
             >
               <li className="nav-item">
                 <Link to="/meus_agendamentos" className="nav-link text-light">
-                  Meus agendamentos
+                  Minha agenda
                 </Link>
               </li>
             </Show>
