@@ -94,9 +94,52 @@ export default function TableSchedule({
       style.color = '#218838';
     } else if (row.status === 'Autorizado') {
       style.color = '#007BFF';
+    } else if (row.status === 'Finalizado') {
+      style.color = '#993399';
     }
 
     return style;
+  };
+
+  const expandRow = {
+    renderer: row => (
+      <div>
+        <h4>
+          <b>Procedimento</b>
+        </h4>
+        <p>{row.procedure}</p>
+
+        <h4>
+          <b>Observações do agendamento</b>
+          <p>{row.observations}</p>
+        </h4>
+
+        <h4>
+          <b>Informações do pagamento</b>
+        </h4>
+        <p>
+          Recebido do paciente :
+          {new Intl.NumberFormat('pt-br', {
+            style: 'currency',
+            currency: 'BRL',
+          }).format(row.value_payment)}
+        </p>
+        <p>{row.observations_payment}</p>
+      </div>
+    ),
+    showExpandColumn: true,
+    expandHeaderColumnRenderer: ({ isAnyExpands }) => {
+      if (isAnyExpands) {
+        return <b>-</b>;
+      }
+      return <b>+</b>;
+    },
+    expandColumnRenderer: ({ expanded }) => {
+      if (expanded) {
+        return <b>-</b>;
+      }
+      return <b>...</b>;
+    },
   };
 
   return (
@@ -117,6 +160,7 @@ export default function TableSchedule({
             pagination={paginationFactory()}
             noDataIndication="Sem resultados"
             rowStyle={rowStyle2}
+            expandRow={expandRow}
           />
         </>
       )}

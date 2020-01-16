@@ -179,7 +179,7 @@ export default function SchedulesForm({ match, location }) {
                     format(new Date(data.currentDate), 'dd-MM-yyyy')} às ${data
                     .item.start && data.item.start} | ${data.item.room}`}
                 />
-                {formik.values.value_transferred}
+
                 <CardBody>
                   <Description
                     icon={
