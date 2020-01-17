@@ -95,7 +95,7 @@ export default function SchedulesForm({ match, location }) {
     },
 
     onSubmit: values => {
-      if (!values.name || !values.date_birth || !values.first_phone) {
+      if (!values.name || !values.first_phone) {
         toast.error('Todos os dados são obrigatórios');
       } else {
         dispatch(savePrePatientRequest({ ...values }));
