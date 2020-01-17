@@ -5,6 +5,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import { zonedTimeToUtc } from 'date-fns-tz';
 import { useFormik } from 'formik';
+import { Link } from 'react-router-dom';
 
 import TableSchedule from './TableSchedule';
 import history from '~/services/history';
@@ -26,6 +27,14 @@ const columns = [
     hidden: true,
   },
   {
+    dataField: 'created_at',
+    text: 'Aberta em',
+  },
+  {
+    dataField: 'date',
+    text: 'Agendada para',
+  },
+  {
     dataField: 'status',
     text: 'Situação',
   },
@@ -36,19 +45,16 @@ const columns = [
   },
   {
     dataField: 'professional_name',
-    text: 'Doutor',
+    text: 'Doutor(a)',
   },
   {
-    dataField: 'date',
-    text: 'Agendada',
+    dataField: 'patient_name',
+    text: 'Paciente',
   },
+
   {
     dataField: 'room',
     text: 'Sala',
-  },
-  {
-    dataField: 'created_at',
-    text: 'Aberta em',
   },
   {
     dataField: 'first_phone',
@@ -73,7 +79,9 @@ export default function SchedulesList() {
       dispatch(
         getSchedulesRequest({
           date: zonedTimeToUtc(values.currentDate, 'America/Sao_Paulo'),
-          professional_id: formik.values.professional_id.value,
+          professional_id: formik.values.professional_id
+            ? formik.values.professional_id.value
+            : '',
         })
       );
     },

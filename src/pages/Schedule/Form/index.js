@@ -70,7 +70,7 @@ export default function SchedulesForm({ match, location }) {
             procedure_id: values.procedure_id.value,
             professional_id: data.item.professional_id,
             date: zonedTimeToUtc(data.currentDate, 'America/Sao_Paulo'),
-            room_id: data.item.room_id,
+            room_id: data.room_id.value,
             start: data.item.start,
           })
         );
@@ -229,28 +229,7 @@ export default function SchedulesForm({ match, location }) {
                       disabled={!formik.values.partnership_id}
                     />
 
-                    {!formik.values.value && (
-                      <MoneyInput
-                        col="4"
-                        label="Valor"
-                        id="inputValue"
-                        name="value"
-                        value={formik.values.value}
-                        onChange={formik.setFieldValue}
-                        disabled
-                      />
-                    )}
-
-                    {formik.values.value && (
-                      <MoneyInput
-                        col="4"
-                        label="Valor"
-                        id="inputValue"
-                        name="value"
-                        value={formik.values.value}
-                        disabled
-                      />
-                    )}
+                    <div className="col-md-4">Valor: {formik.values.value}</div>
                   </Row>
                   <Row>
                     <Textarea

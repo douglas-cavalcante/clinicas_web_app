@@ -22,7 +22,9 @@ export function* saveProfessionalSchedule({ payload }) {
       history.goBack();
     }
   } catch (error) {
-    toast.error('Houve um erro ao tentar atualizar.');
+    if (error.response.data && error.response.data.err) {
+      toast.error(error.response.data && error.response.data.err.message);
+    }
     yield put(professionalScheduleFailure());
   }
 }

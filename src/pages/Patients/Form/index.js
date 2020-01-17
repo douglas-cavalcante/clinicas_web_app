@@ -507,7 +507,7 @@ export default function PatientForm({ match }) {
                 <Row>
                   <Input
                     col="4"
-                    label="Primeir      form_payment: '',o contato"
+                    label="Primeiro contato"
                     id="inputFirstPhone"
                     type="text"
                     name="first_phone"
