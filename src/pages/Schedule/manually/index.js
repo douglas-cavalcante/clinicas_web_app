@@ -18,7 +18,6 @@ import api from '~/services/api';
 import { getProfessionalsOptionsRequest } from '~/store/modules/professional/actions';
 
 import Select from '~/components/Form/Select';
-import MoneyInput from '~/components/Form/MoneyInput';
 
 import Textarea from '~/components/Form/Textarea';
 

@@ -196,6 +196,12 @@ export default function SchedulesList() {
                 <button type="submit" className="btn btn-success float-right">
                   Pesquisar
                 </button>
+                <Link
+                  to="agendamentos/encaixe"
+                  className="btn btn-success float-right mr-4"
+                >
+                  Encaixe
+                </Link>
               </div>
             </Row>
           </form>
