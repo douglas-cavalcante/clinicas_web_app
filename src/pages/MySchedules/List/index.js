@@ -19,12 +19,19 @@ import Row from '~/components/Bootstrap/Row';
 import { getMySchedulesRequest } from '~/store/modules/schedule/actions';
 
 import { getProfessionalsOptionsRequest } from '~/store/modules/professional/actions';
-
 const columns = [
   {
     dataField: 'key',
     text: '#',
     hidden: true,
+  },
+  {
+    dataField: 'created_at',
+    text: 'Aberta em',
+  },
+  {
+    dataField: 'date',
+    text: 'Agendada para',
   },
   {
     dataField: 'status',
@@ -37,19 +44,16 @@ const columns = [
   },
   {
     dataField: 'professional_name',
-    text: 'Doutor',
+    text: 'Doutor(a)',
   },
   {
-    dataField: 'date',
-    text: 'Agendada',
+    dataField: 'patient_name',
+    text: 'Paciente',
   },
+
   {
     dataField: 'room',
     text: 'Sala',
-  },
-  {
-    dataField: 'created_at',
-    text: 'Aberta em',
   },
   {
     dataField: 'first_phone',
