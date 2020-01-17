@@ -40,8 +40,6 @@ export default function AuthorizationForm({ match }) {
     onSubmit: async values => {
       if (!values.form_payment_id) {
         toast.error('A forma de pagamento é obrigatória');
-      } else if (!values.value_payment) {
-        toast.error('O valor é obrigatório');
       } else {
         await api
           .put(`schedules/authorization/${id}`, {
