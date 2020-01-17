@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { differenceInYears } from 'date-fns';
+import { differenceInYears, format } from 'date-fns';
 import Axios from 'axios';
 
 import PropTypes from 'prop-types';
@@ -152,7 +152,7 @@ export default function PatientForm({ match }) {
         // dados do paciente
         name: response.data.name,
         email: response.data.email,
-        date_birth: response.data.date_birth,
+        date_birth: format(new Date(response.data.date_birth), 'yyyy-MM-dd'),
         age: '',
         father_name: '',
         mother_name: '',
