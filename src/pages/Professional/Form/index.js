@@ -8,9 +8,9 @@ import { Editor } from '@tinymce/tinymce-react';
 
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
-import { MdDock, MdPerson, MdHome, MdHttps, MdLock } from 'react-icons/md';
+import { MdDock, MdPerson, MdHome, MdHttps } from 'react-icons/md';
 import { Card, CardHeader, CardBody, CardFooter } from '~/components/Card';
-
+import { format } from 'date-fns';
 import Select from '~/components/Form/Select';
 import CreatableSelect from '~/components/Form/CreatableSelect/CreatableSelect';
 import SwitchButton from '~/components/Form/SwitchButton';
@@ -129,7 +129,7 @@ export default function ProfessionalForm({ match }) {
         // dados do profissional
         name: response.data.name,
         email: response.data.email,
-        date_birth: response.data.date_birth,
+        date_birth: format(new Date(response.data.date_birth), 'yyyy-MM-dd'),
         sexo: {
           value: response.data.sexo,
           label: response.data.sexo === 'M' ? 'Masculino' : 'Feminino',
@@ -421,7 +421,7 @@ export default function ProfessionalForm({ match }) {
                     name="first_phone"
                     value={formik.values.first_phone}
                     onChange={formik.handleChange}
-                    mask="(99) 9999-9999"
+                    mask="(99) 99999-9999"
                   />
                   <Input
                     col="6"
@@ -431,7 +431,7 @@ export default function ProfessionalForm({ match }) {
                     name="second_phone"
                     value={formik.values.second_phone}
                     onChange={formik.handleChange}
-                    mask="(99) 9999-9999"
+                    mask="(99) 99999-9999"
                   />
                 </Row>
 
