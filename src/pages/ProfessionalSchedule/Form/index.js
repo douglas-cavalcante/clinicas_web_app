@@ -109,8 +109,16 @@ export default function ProfessionalScheduleForm({ match }) {
 
         const [hour] = duration.split(':');
 
-        const calc = Math.round(minutesQuatity / hour);
-        formik.setValues({ ...formik.values, quantity: calc });
+        const calc = parseInt(minutesQuatity / hour);
+
+        if (calc >= 1) {
+          formik.setValues({ ...formik.values, quantity: calc });
+        } else {
+          formik.setValues({ ...formik.values, duration: '' });
+          toast.error(
+            'A duração da consulta é superior ao horários escolhidos'
+          );
+        }
       }
     }
   }
