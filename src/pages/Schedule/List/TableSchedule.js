@@ -161,6 +161,12 @@ export default function TableSchedule({
             noDataIndication="Sem resultados"
             rowStyle={rowStyle2}
             expandRow={expandRow}
+            defaultSorted={[
+              {
+                dataField: 'start',
+                order: 'asc',
+              },
+            ]}
           />
         </>
       )}
