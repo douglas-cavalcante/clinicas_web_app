@@ -89,8 +89,6 @@ export default function PatientForm({ match }) {
     onSubmit: values => {
       if (!values.name) {
         toast.error('O nome do paciente é obrigatório.');
-      } else if (!values.date_birth) {
-        toast.error('Data de nascimento é obrigatória.');
       } else if (!values.first_phone) {
         toast.error('O primeiro telefone é obrigatório.');
       } else {
@@ -148,34 +146,36 @@ export default function PatientForm({ match }) {
     await api.get(`patients/${id}`).then(response => {
       formik.setValues({
         ...formik.values,
-        id: '',
+        id: response.data.id,
         // dados do paciente
         name: response.data.name,
         email: response.data.email,
-        date_birth: format(new Date(response.data.date_birth), 'yyyy-MM-dd'),
-        age: '',
-        father_name: '',
-        mother_name: '',
+        date_birth: response.data.date_birth
+          ? format(new Date(response.data.date_birth), 'yyyy-MM-dd')
+          : null,
+        age: response.data.age,
+        father_name: response.data.father_name,
+        mother_name: response.data.mother_name,
         gender: {
           value: response.data.gender,
           label: response.data.gender === 'M' ? 'Masculino' : 'Feminino',
         },
         // Documentos
-        cpf: '',
-        rg: '',
+        cpf: response.data.cpf,
+        rg: response.data.rg,
         responsible_document: false,
-        observations: '',
+        observations: response.data.observations,
         // Dados da residência
-        cep: '',
-        street: '',
-        number: '',
-        neighborhood: '',
-        county: '',
-        complement: '',
+        cep: response.data.cep,
+        street: response.data.street,
+        number: response.data.number,
+        neighborhood: response.data.neighborhood,
+        county: response.data.county,
+        complement: response.data.complement,
         // contatos
-        first_phone: '',
-        second_phone: '',
-        whatsapp: '',
+        first_phone: response.data.first_phone,
+        second_phone: response.data.second_phone,
+        whatsapp: response.data.whatsapp,
         // Dados sociais
         indication_id: response.data.indication_id
           ? {
@@ -189,9 +189,9 @@ export default function PatientForm({ match }) {
               label: response.data.ocupation_id.label,
             }
           : null,
-        nationality: '',
-        instagram: '',
-        facebook: '',
+        nationality: response.data.nationality,
+        instagram: response.data.instagram,
+        facebook: response.data.facebook,
         race_id: response.data.race_id
           ? {
               value: response.data.race_id.id,
@@ -339,7 +339,7 @@ export default function PatientForm({ match }) {
                   />
                   <Input
                     col="3"
-                    label="Data de Nascimento *"
+                    label="Data de Nascimento"
                     id="date_birth"
                     type="date"
                     name="date_birth"
@@ -636,7 +636,7 @@ export default function PatientForm({ match }) {
                   Voltar
                 </button>
                 <button type="submit" className="btn btn-success float-right">
-                  Cadastrar
+                  {id ? 'Atualizar' : 'Cadastrar'}
                 </button>
               </CardFooter>
             </form>
