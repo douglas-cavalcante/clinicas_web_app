@@ -21,10 +21,13 @@ export function* savePatient({ payload }) {
     } else {
       yield call(api.put, `patients/${id}`, payload.data);
       toast.success('Paciente atualizado com sucesso !');
+
       history.goBack();
     }
   } catch (error) {
-    toast.error('Houve um erro ao tentar atualizar.');
+    if (error.response.data && error.response.data.err) {
+      toast.error(error.response.data && error.response.data.err.message);
+    }
     yield put(patientFailure());
   }
 }
