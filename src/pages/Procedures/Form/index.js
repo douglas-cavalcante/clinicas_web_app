@@ -43,8 +43,6 @@ export default function ProceduresForm({ match }) {
     onSubmit: values => {
       if (!values.name) {
         toast.error('O nome do procedimento é obrigatório');
-      } else if (!values.value || !values.value_transferred) {
-        toast.error('A Sessão de valores deve ser preenchida');
       } else if (values.id) {
         // atualização
         dispatch(saveProcedureRequest({ ...values }));
