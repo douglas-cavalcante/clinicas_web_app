@@ -229,7 +229,15 @@ export default function SchedulesForm({ match, location }) {
                       disabled={!formik.values.partnership_id}
                     />
 
-                    <div className="col-md-4">Valor: {formik.values.value}</div>
+                    <Input
+                      label="Valor do procedimento"
+                      col="3"
+                      value={formik.values.value}
+                      handleChangeValue={formik.setFieldValue}
+                      id="valuePro"
+                      type="text"
+                      disabled
+                    />
                   </Row>
                   <Row>
                     <Textarea
