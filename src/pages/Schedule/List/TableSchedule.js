@@ -5,6 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider from 'react-bootstrap-table2-toolkit';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+
 import Show from '~/components/Show';
 
 export default function TableSchedule({
@@ -142,6 +143,13 @@ export default function TableSchedule({
     },
   };
 
+  const options = {
+    // pageStartIndex: 0,
+    sizePerPage: 40,
+    hideSizePerPage: true,
+    hidePageListOnlyOnePage: true,
+  };
+
   return (
     <ToolkitProvider
       keyField={keyField}
@@ -161,6 +169,7 @@ export default function TableSchedule({
             noDataIndication="Sem resultados"
             rowStyle={rowStyle2}
             expandRow={expandRow}
+            pagination={paginationFactory(options)}
             defaultSorted={[
               {
                 dataField: 'start',
