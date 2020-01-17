@@ -17,8 +17,8 @@ export default function Dashboard() {
             style={{ width: '300px' }}
             alt="..."
           />
-          <h1 className="display-4">Olá, usuário!</h1>
-          <p className="lead">Seja bem-vindo ao web agendamentos.</p>
+          <h1 className="display-4">Olá!</h1>
+          <p className="lead">Seja bem-vindo a Evolutio.</p>
           <hr className="my-4" />
         </div>
       </div>
