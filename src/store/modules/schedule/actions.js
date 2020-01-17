@@ -39,6 +39,15 @@ export function saveScheduleRequest(data) {
   };
 }
 
+export function saveScheduleEncaixeRequest(data) {
+  return {
+    type: '@schedules/SAVE_SCHEDULE_ENCAIXE_REQUEST',
+    payload: {
+      data,
+    },
+  };
+}
+
 export function scheduleFailure() {
   return {
     type: '@schedules/REQUEST_FAILURE',

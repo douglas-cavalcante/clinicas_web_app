@@ -70,7 +70,7 @@ export default function SchedulesForm({ match, location }) {
             procedure_id: values.procedure_id.value,
             professional_id: data.item.professional_id,
             date: zonedTimeToUtc(data.currentDate, 'America/Sao_Paulo'),
-            room_id: data.room_id.value,
+            room_id: data.item.room_id,
             start: data.item.start,
           })
         );

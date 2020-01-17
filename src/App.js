@@ -1,5 +1,3 @@
-import { hot } from 'react-hot-loader/root';
-
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
@@ -29,4 +27,4 @@ function App() {
   );
 }
 
-export default hot(App);
+export default App;

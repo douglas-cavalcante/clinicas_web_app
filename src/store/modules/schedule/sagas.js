@@ -41,8 +41,20 @@ export function* saveSchedule({ payload }) {
   }
 }
 
+export function* saveScheduleEncaixe({ payload }) {
+  try {
+    yield call(api.post, 'schedules/manually', payload.data);
+    toast.success('Encaixado com sucesso !');
+    history.push('/agendamentos');
+  } catch (error) {
+    toast.error('Houve um erro ao tentar adicionar o encaixe.');
+    yield put(scheduleFailure());
+  }
+}
+
 export default all([
   takeLatest('@schedules/GET_SCHEDULE_REQUEST', getSchedules),
   takeLatest('@schedules/GET_MY_SCHEDULE_REQUEST', getMySchedules),
   takeLatest('@schedules/SAVE_SCHEDULE_REQUEST', saveSchedule),
+  takeLatest('@schedules/SAVE_SCHEDULE_ENCAIXE_REQUEST', saveScheduleEncaixe),
 ]);
