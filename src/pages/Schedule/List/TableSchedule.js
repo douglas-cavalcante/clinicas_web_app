@@ -165,11 +165,10 @@ export default function TableSchedule({
             bootstrap4
             wrapperClasses="table-responsive"
             filter={filterFactory()}
-            pagination={paginationFactory()}
+            pagination={paginationFactory(options)}
             noDataIndication="Sem resultados"
             rowStyle={rowStyle2}
             expandRow={expandRow}
-            pagination={paginationFactory(options)}
             defaultSorted={[
               {
                 dataField: 'start',
