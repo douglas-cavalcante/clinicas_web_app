@@ -12,7 +12,14 @@ import history from '~/services/history';
 
 export function* getSchedules({ payload }) {
   try {
-    const response = yield call(api.post, `schedules`, payload.data);
+    const response = yield call(api.post, `schedules`, {
+      ...payload.data,
+      date: new Date(
+        payload.data.date.getFullYear(),
+        payload.data.date.getMonth(),
+        payload.data.date.getDate()
+      ),
+    });
     yield put(getSchedulesSuccess(response.data));
   } catch (error) {
     toast.error('Houve um erro interno.');
@@ -22,7 +29,14 @@ export function* getSchedules({ payload }) {
 
 export function* getMySchedules({ payload }) {
   try {
-    const response = yield call(api.post, `mySchedules`, payload.data);
+    const response = yield call(api.post, `mySchedules`, {
+      ...payload.data,
+      date: new Date(
+        payload.data.date.getFullYear(),
+        payload.data.date.getMonth(),
+        payload.data.date.getDate()
+      ),
+    });
     yield put(getMySchedulesSuccess(response.data));
   } catch (error) {
     toast.error('Houve um erro interno.');
