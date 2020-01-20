@@ -291,7 +291,7 @@ export default function SchedulesList() {
               className: 'btn btn-sm btn-warning',
               onClick: handlePreConfirmSchedule,
               buttonText: 'Confirmar',
-              status: ['Agendado', 'Cancelado'],
+              status: ['Agendado'],
             },
             {
               text: 'Cancelar',
