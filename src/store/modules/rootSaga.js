@@ -25,6 +25,7 @@ import patient from './patient/sagas';
 import account from './financial/account/sagas';
 
 import financials from './financial/financials/sagas';
+import scheduleReport from './report/schedule/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -44,5 +45,6 @@ export default function* rootSaga() {
     // financeiro
     account,
     financials,
+    scheduleReport,
   ]);
 }

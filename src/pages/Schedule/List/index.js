@@ -78,7 +78,7 @@ export default function SchedulesList() {
     onSubmit: values => {
       dispatch(
         getSchedulesRequest({
-          date: zonedTimeToUtc(values.currentDate, 'America/Sao_Paulo'),
+          date: values.currentDate,
           professional_id: formik.values.professional_id
             ? formik.values.professional_id.value
             : '',
@@ -125,6 +125,34 @@ export default function SchedulesList() {
     });
   }
 
+  function handlePreConfirmSchedule(item) {
+    confirmAlert({
+      title: 'Pré-Confirmação',
+      message: 'Deseja realmente pré confirmar ?',
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: () =>
+            api
+              .put(`schedules/preconfirm/${item.id}`)
+              .then(() => {
+                toast.success('Pré-confirmado com sucesso!');
+                dispatch(
+                  getSchedulesRequest({
+                    date: formik.values.currentDate,
+                  })
+                );
+              })
+              .catch(() => {}),
+        },
+        {
+          label: 'Não',
+          onClick: () => {},
+        },
+      ],
+    });
+  }
+
   function handleConfirmSchedule(item) {
     confirmAlert({
       title: 'Confirmação',
@@ -155,6 +183,12 @@ export default function SchedulesList() {
 
   function handleAuthorize(item) {
     history.push(`/agendamentos/${item.id}/autorizacao`, {
+      item,
+    });
+  }
+
+  function handleRedirectEditPatient(item) {
+    history.push(`/pacientes/${item.patient_id}`, {
       item,
     });
   }
@@ -212,32 +246,53 @@ export default function SchedulesList() {
           columns={columns}
           extrasColumns={[
             {
+              text: 'Editar',
+              className: 'btn btn-sm btn-secondary',
+              onClick: handleRedirectEditPatient,
+              buttonText: 'Editar',
+              status: [
+                'Agendado',
+                'Pré-Confirmado',
+                'Confirmado',
+                'Autorizado',
+                'Finalizado',
+              ],
+            },
+
+            {
               text: 'Agendar',
               className: 'btn btn-sm btn-info',
               onClick: handleRedirectToForm,
               buttonText: 'Agendar',
-              status: 'Liberado',
+              status: ['Liberado'],
+            },
+            {
+              text: '1ª confirmação',
+              className: 'btn btn-sm btn-warning',
+              onClick: handlePreConfirmSchedule,
+              buttonText: 'Confirmar',
+              status: ['Agendado'],
             },
             {
               text: 'Cancelar',
               className: 'btn btn-sm btn-danger',
               onClick: handleCancelSchedule,
               buttonText: 'Cancelar',
-              status: 'Agendado',
+              status: ['Agendado', 'Pré-Confirmado'],
             },
             {
               text: 'Confirmar',
               className: 'btn btn-sm btn-warning',
               onClick: handleConfirmSchedule,
               buttonText: 'Confirmar',
-              status: 'Agendado',
+              status: ['Pré-Confirmado'],
             },
             {
               text: 'Autorizar',
               className: 'btn btn-sm btn-success',
               onClick: handleAuthorize,
               buttonText: 'Autorizar',
-              status: 'Confirmado',
+              status: ['Confirmado'],
             },
           ]}
         />

@@ -22,6 +22,7 @@ import patient from './patient/reducer';
 import account from './financial/account/reducer';
 
 import financials from './financial/financials/reducer';
+import scheduleReport from './report/schedule/reducer';
 
 export default combineReducers({
   auth,
@@ -41,4 +42,5 @@ export default combineReducers({
   // financeiro
   account,
   financials,
+  scheduleReport,
 });

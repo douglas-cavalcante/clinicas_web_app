@@ -16,6 +16,7 @@ export default function Navbar() {
 
   const [showDropdownOne, setShowDropdownOne] = useState(false);
   const [showDropdownTwo, setShowDropdownTwo] = useState(false);
+  const [showDropdownThree, setShowDropdownThree] = useState(false);
 
   function handleClickAgendamentos() {
     setShowDropdownOne(!showDropdownOne);
@@ -23,6 +24,10 @@ export default function Navbar() {
 
   function handleClickFinanceiro() {
     setShowDropdownTwo(!showDropdownTwo);
+  }
+
+  function handleClickRelatorio() {
+    setShowDropdownThree(!showDropdownThree);
   }
 
   function handleSignOut() {
@@ -201,6 +206,40 @@ export default function Navbar() {
                 <Link to="/meus_agendamentos" className="nav-link text-light">
                   Minha agenda
                 </Link>
+              </li>
+            </Show>
+
+            <Show display={profile.professional.role_id == '1'}>
+              <li
+                className={`nav-item dropdown ${
+                  showDropdownThree ? 'show' : ''
+                }`}
+              >
+                <a
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  className="nav-link dropdown-toggle text-light"
+                  onClick={handleClickRelatorio}
+                >
+                  Relatórios
+                </a>
+                <ul
+                  aria-labelledby="dropdownSubMenu1"
+                  className={`dropdown-menu border-0 shadow ${
+                    showDropdownThree ? 'show' : ''
+                  }`}
+                >
+                  <li>
+                    <Link
+                      to="/relatorios/producao"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownTwo(false)}
+                    >
+                      Produção
+                    </Link>
+                  </li>
+                </ul>
               </li>
             </Show>
             <li className="nav-link text-light" onClick={handleSignOut}>

@@ -41,7 +41,7 @@ export default function TableSchedule({
 
           formatter: (cell, row) => (
             <>
-              <Show display={row.status === item.status}>
+              <Show display={item.status.includes(row.status)}>
                 <button
                   key={row.id}
                   type="button"
@@ -91,6 +91,8 @@ export default function TableSchedule({
     const style = {};
     if (row.status === 'Cancelado') {
       style.color = 'tomato';
+    } else if (row.status === 'Pré-Confirmado') {
+      style.color = '#ffa500';
     } else if (row.status === 'Confirmado') {
       style.color = '#218838';
     } else if (row.status === 'Autorizado') {

@@ -39,6 +39,7 @@ import UsersForm from '~/pages/Users';
 import AuthorizationForm from '~/pages/Schedule/autorization/Form';
 import MySchedules from '~/pages/MySchedules/List';
 import SchedulesManuallyForm from '~/pages/Schedule/manually';
+import ScheduleReport from '~/pages/Report/Schedules';
 
 export default function Routes() {
   return (
@@ -319,6 +320,14 @@ export default function Routes() {
         component={FinancialsForm}
         isPrivate
         permissions={[1, 3]}
+      />
+
+      <Route
+        exact
+        path="/relatorios/producao"
+        component={ScheduleReport}
+        isPrivate
+        permissions={[1]}
       />
     </Switch>
   );

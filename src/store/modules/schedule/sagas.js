@@ -46,7 +46,14 @@ export function* getMySchedules({ payload }) {
 
 export function* saveSchedule({ payload }) {
   try {
-    yield call(api.post, 'schedules/new', payload.data);
+    yield call(api.post, 'schedules/new', {
+      ...payload.data,
+      date: new Date(
+        payload.data.date.getFullYear(),
+        payload.data.date.getMonth(),
+        payload.data.date.getDate()
+      ),
+    });
     toast.success('Agendando com sucesso !');
     history.goBack();
   } catch (error) {
@@ -57,7 +64,14 @@ export function* saveSchedule({ payload }) {
 
 export function* saveScheduleEncaixe({ payload }) {
   try {
-    yield call(api.post, 'schedules/manually', payload.data);
+    yield call(api.post, 'schedules/manually', {
+      ...payload.data,
+      date: new Date(
+        payload.data.date.getFullYear(),
+        payload.data.date.getMonth(),
+        payload.data.date.getDate()
+      ),
+    });
     toast.success('Encaixado com sucesso !');
     history.push('/agendamentos');
   } catch (error) {

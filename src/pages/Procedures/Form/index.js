@@ -65,8 +65,10 @@ export default function ProceduresForm({ match }) {
           name: response.data.name,
           description: response.data.description,
           observation: response.data.observation,
-          value: Number(response.data.value),
-          value_transferred: Number(response.data.value_transferred),
+          value: response.data.value ? Number(response.data.value) : 0,
+          value_transferred: response.data.value_transferred
+            ? Number(response.data.value_transferred)
+            : 0,
         });
       });
     }
@@ -181,7 +183,7 @@ export default function ProceduresForm({ match }) {
                     />
                   )}
 
-                  {id && formik.values.value && (
+                  {id && formik.values.value_transferred && (
                     <MoneyInput
                       col="6"
                       label="Valor de repasse"
