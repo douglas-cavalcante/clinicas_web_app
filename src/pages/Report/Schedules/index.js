@@ -269,9 +269,9 @@ export default function ScheduleReport() {
               },
             },
             {
-              text: `FORTALEZA, CEARA, ${format(
+              text: `FORTALEZA, CEARÁ, ${format(
                 new Date(),
-                'dd/MM/yyyy hh:mm:ss'
+                'dd/MM/yyyy hh:mm:ss a'
               )} \n\n`,
               fontSize: 10,
               style: {
