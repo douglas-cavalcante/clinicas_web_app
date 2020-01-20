@@ -12,6 +12,20 @@ export function updateProfileSuccess(profile) {
   };
 }
 
+export function getUsersOptionsRequest() {
+  return {
+    type: '@user/GET_USERS_OPTIONS_REQUEST',
+    payload: {},
+  };
+}
+
+export function getUsersOptionsSuccess(data) {
+  return {
+    type: '@user/GET_USERS_OPTIONS_SUCCESS',
+    payload: { data },
+  };
+}
+
 export function updateProfileFailure() {
   return {
     type: '@user/UPDATE_PROFILE_FAILURE',

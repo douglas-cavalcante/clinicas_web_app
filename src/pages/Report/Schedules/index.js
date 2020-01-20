@@ -27,6 +27,7 @@ import DropdownButton from '~/components/DropdownButton';
 import { format } from 'date-fns';
 import { formatValues } from '~/utils/utils';
 import SwitchButton from '~/components/Form/SwitchButton';
+import { getUsersOptionsRequest } from '~/store/modules/user/actions';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const columns = [
@@ -42,6 +43,10 @@ const columns = [
   {
     dataField: 'date',
     text: 'Data',
+  },
+  {
+    dataField: 'user_name',
+    text: 'Responsável',
   },
   {
     dataField: 'professional_name',
@@ -79,6 +84,7 @@ export default function ScheduleReport() {
   const [formPaymentsOptions, setFormPaymentsOptions] = useState([]);
 
   const professional = useSelector(state => state.professional);
+  const user = useSelector(state => state.user);
   const scheduleReport = useSelector(state => state.scheduleReport);
 
   const formik = useFormik({
@@ -87,9 +93,9 @@ export default function ScheduleReport() {
       startDate: new Date(),
       endDate: new Date(),
       professional_id: { value: '', label: '' },
-
+      user_id: { value: '', label: 'Todos' },
       status: '',
-      form_payment_id: null,
+      form_payment_id: { value: '', label: 'Todos' },
       change_value: true,
     },
     onSubmit: values => {
@@ -113,6 +119,7 @@ export default function ScheduleReport() {
             ? values.form_payment_id.value
             : null,
           status: values.status ? values.status.value : null,
+          user_id: values.user_id ? values.user_id.value : null,
         })
       );
     },
@@ -129,6 +136,7 @@ export default function ScheduleReport() {
 
   useEffect(() => {
     dispatch(getProfessionalsOptionsRequest());
+    dispatch(getUsersOptionsRequest());
     handleLoadFormPaymentOptions();
   }, []);
 
@@ -136,6 +144,7 @@ export default function ScheduleReport() {
     const labels = [
       'Situação',
       'Data',
+      'Responsável',
       'Doutor(a)',
       'Paciente',
       'Procedimento',
@@ -161,6 +170,7 @@ export default function ScheduleReport() {
       data.push([
         item.status,
         item.date,
+        item.user_name,
         item.professional_name,
         item.patient_name,
         item.procedure_name,
@@ -194,6 +204,7 @@ export default function ScheduleReport() {
           layout: 'lightHorizontalLines',
           table: {
             widths: [
+              'auto',
               'auto',
               'auto',
               'auto',
@@ -373,6 +384,15 @@ export default function ScheduleReport() {
                   handleChangeValue={formik.setFieldValue}
                   name="form_payment_id"
                   options={formPaymentsOptions}
+                />
+
+                <Select
+                  label="Responsável"
+                  col="12"
+                  value={formik.values.user_id}
+                  handleChangeValue={formik.setFieldValue}
+                  name="user_id"
+                  options={user.options}
                 />
                 <SwitchButton
                   col="12"
