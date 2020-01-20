@@ -46,16 +46,25 @@ export function* getMySchedules({ payload }) {
 
 export function* saveSchedule({ payload }) {
   try {
-    yield call(api.post, 'schedules/new', {
-      ...payload.data,
-      date: new Date(
-        payload.data.date.getFullYear(),
-        payload.data.date.getMonth(),
-        payload.data.date.getDate()
-      ),
-    });
-    toast.success('Agendando com sucesso !');
-    history.goBack();
+    const { id } = payload.data;
+    if (!id) {
+      yield call(api.post, 'schedules/new', {
+        ...payload.data,
+        date: new Date(
+          payload.data.date.getFullYear(),
+          payload.data.date.getMonth(),
+          payload.data.date.getDate()
+        ),
+      });
+      toast.success('Agendando com sucesso !');
+      history.goBack();
+    } else {
+      yield call(api.put, `schedules/${id}`, {
+        ...payload.data,
+      });
+      toast.error('Atualizado com sucesso');
+      history.goBack();
+    }
   } catch (error) {
     toast.error('Houve um erro ao tentar atualizar.');
     yield put(scheduleFailure());

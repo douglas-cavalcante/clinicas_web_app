@@ -104,6 +104,42 @@ export default function SchedulesForm({ match, location }) {
     },
   });
 
+  async function loadSchedule() {
+    await api.get(`schedules/${id}`).then(response => {
+      formik.setValues({
+        ...formik.values,
+        id: response.data.id,
+        patient_id: response.data.patient
+          ? {
+              value: response.data.patient.id,
+              label: response.data.patient.name,
+            }
+          : null,
+        partnership_id: response.data.procedure.partnership
+          ? {
+              value: response.data.procedure.partnership.id,
+              label: response.data.procedure.partnership.name,
+            }
+          : null,
+        professional_id: response.data.professional
+          ? {
+              value: response.data.professional.id,
+              label: response.data.professional.name,
+            }
+          : null,
+        procedure_id: response.data.procedure
+          ? {
+              value: response.data.procedure.id,
+              label: response.data.procedure.name,
+            }
+          : null,
+        value: response.data.value,
+        value_transferred: response.data.value_transferred,
+        observations: response.data.observations,
+      });
+    });
+  }
+
   async function getProceduresOptions() {
     await api
       .get(`partnerships/options`)
@@ -117,6 +153,7 @@ export default function SchedulesForm({ match, location }) {
     dispatch(getProfessionalsOptionsRequest());
     getProceduresOptions();
     loadPatientsOptions();
+    if (id) loadSchedule();
   }, []);
 
   useEffect(() => {
@@ -166,7 +203,7 @@ export default function SchedulesForm({ match, location }) {
 
   return (
     <>
-      <Header title="Novo agendamento" />
+      <Header title={id ? 'Alterar obsevações' : 'Novo agendamento'} />
 
       <div className="content">
         <div className="container">
@@ -207,6 +244,7 @@ export default function SchedulesForm({ match, location }) {
                       handleChangeValue={formik.setFieldValue}
                       name="patient_id"
                       options={patientsOptions}
+                      disabled={id}
                     />
                   </Row>
 
@@ -218,6 +256,7 @@ export default function SchedulesForm({ match, location }) {
                       handleChangeValue={formik.setFieldValue}
                       name="partnership_id"
                       options={partnershipsOptions}
+                      disabled={id}
                     />
                     <Select
                       label="Procedimentos"
@@ -226,7 +265,7 @@ export default function SchedulesForm({ match, location }) {
                       handleChangeValue={formik.setFieldValue}
                       name="procedure_id"
                       options={proceduresOptions}
-                      disabled={!formik.values.partnership_id}
+                      disabled={!formik.values.partnership_id || id}
                     />
 
                     <Input

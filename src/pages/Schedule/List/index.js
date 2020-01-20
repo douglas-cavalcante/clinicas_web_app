@@ -193,6 +193,13 @@ export default function SchedulesList() {
     });
   }
 
+  function handleRedirectEditSchedule(item) {
+    history.push(`/agendamentos/${item.id}`, {
+      currentDate: formik.values.currentDate,
+      item,
+    });
+  }
+
   useEffect(() => {
     dispatch(getProfessionalsOptionsRequest());
     dispatch(
@@ -246,12 +253,25 @@ export default function SchedulesList() {
           columns={columns}
           extrasColumns={[
             {
-              text: 'Editar',
+              text: 'Editar Paciente',
               className: 'btn btn-sm btn-secondary',
               onClick: handleRedirectEditPatient,
               buttonText: 'Editar',
               status: [
                 'Agendado',
+                'Pré-Confirmado',
+                'Confirmado',
+                'Autorizado',
+                'Finalizado',
+              ],
+            },
+
+            {
+              text: 'Editar observações',
+              className: 'btn btn-sm btn-secondary',
+              onClick: handleRedirectEditSchedule,
+              buttonText: 'Editar',
+              status: [
                 'Pré-Confirmado',
                 'Confirmado',
                 'Autorizado',
@@ -271,7 +291,7 @@ export default function SchedulesList() {
               className: 'btn btn-sm btn-warning',
               onClick: handlePreConfirmSchedule,
               buttonText: 'Confirmar',
-              status: ['Agendado'],
+              status: ['Agendado', 'Cancelado'],
             },
             {
               text: 'Cancelar',
@@ -285,7 +305,7 @@ export default function SchedulesList() {
               className: 'btn btn-sm btn-warning',
               onClick: handleConfirmSchedule,
               buttonText: 'Confirmar',
-              status: ['Pré-Confirmado'],
+              status: ['Pré-Confirmado', 'Cancelado'],
             },
             {
               text: 'Autorizar',
