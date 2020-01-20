@@ -8,6 +8,8 @@ export default function SwitchButton({
   onChange,
   name,
   label,
+  onlabel = 'Sim',
+  offlabel = 'Não',
   col,
   id,
 }) {
@@ -17,9 +19,9 @@ export default function SwitchButton({
         {label && <label htmlFor={id}>{label}</label>}
         <BootstrapSwitchButton
           checked={checked}
-          onlabel="Sim"
+          onlabel={onlabel}
           onstyle="success"
-          offlabel="Não"
+          offlabel={offlabel}
           offstyle="danger"
           style="w-100"
           size="sm"

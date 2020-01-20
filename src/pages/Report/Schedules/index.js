@@ -26,6 +26,7 @@ import { FaRegFilePdf } from 'react-icons/fa';
 import DropdownButton from '~/components/DropdownButton';
 import { format } from 'date-fns';
 import { formatValues } from '~/utils/utils';
+import SwitchButton from '~/components/Form/SwitchButton';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const columns = [
@@ -80,6 +81,7 @@ export default function ScheduleReport() {
       professional_id: { value: '', label: '' },
       status: '',
       form_payment_id: null,
+      change_value: true,
     },
     onSubmit: values => {
       dispatch(
@@ -178,7 +180,7 @@ export default function ScheduleReport() {
         {
           layout: 'lightHorizontalLines',
           table: {
-            widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+            widths: ['auto', 'auto', 100, 80, 'auto', 'auto', 'auto'],
             headerRows: 1,
             body: [[...labels], ...data],
           },
@@ -187,16 +189,16 @@ export default function ScheduleReport() {
         {
           text: `\n Total do valor de pagamento: ${formatValues(
             somaValorPagamento
-          )} \n\n`,
+          )} \n`,
           style: {
             margin: [10, 0, 0, 10],
           },
         },
 
         {
-          text: `\n\n\n Total do valor de repasse: ${formatValues(
+          text: `Total do valor de repasse: ${formatValues(
             somaValorTransferido
-          )}`,
+          )} \n \n \n`,
           style: {
             margin: [10, 0, 0, 10],
           },
@@ -212,7 +214,11 @@ export default function ScheduleReport() {
               },
             },
             {
-              text: `A QUANTIA DE ${formatValues(somaValorTransferido)}\n`,
+              text: `A QUANTIA DE ${
+                formik.values.change_value
+                  ? formatValues(somaValorTransferido)
+                  : formatValues(somaValorPagamento)
+              }\n`,
               fontSize: 12,
               style: {
                 alignment: 'center',
@@ -268,6 +274,10 @@ export default function ScheduleReport() {
           ],
         },
       ],
+
+      defaultStyle: {
+        fontSize: 10,
+      },
       styles: {
         header: {
           fontSize: 22,
@@ -340,6 +350,16 @@ export default function ScheduleReport() {
                   handleChangeValue={formik.setFieldValue}
                   name="form_payment_id"
                   options={formPaymentsOptions}
+                />
+                <SwitchButton
+                  col="12"
+                  onChange={formik.setFieldValue}
+                  name="change_value"
+                  label="Utiliza qual valor ?"
+                  id="change_vALUE_ID"
+                  checked={formik.values.change_value}
+                  offlabel="Utiliza valor de pagamento"
+                  onlabel="Utiliza valor de repasse"
                 />
                 <button type="submit" className="btn btn-success float-right">
                   Pesquisar
