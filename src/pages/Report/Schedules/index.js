@@ -48,6 +48,14 @@ const columns = [
     text: 'Profissional',
   },
   {
+    dataField: 'patient_name',
+    text: 'Paciente',
+  },
+  {
+    dataField: 'procedure_name',
+    text: 'Procedimento',
+  },
+  {
     dataField: 'form_payment',
     text: 'Tipo de pagamento',
   },
@@ -79,6 +87,7 @@ export default function ScheduleReport() {
       startDate: new Date(),
       endDate: new Date(),
       professional_id: { value: '', label: '' },
+
       status: '',
       form_payment_id: null,
       change_value: true,
@@ -128,6 +137,8 @@ export default function ScheduleReport() {
       'Situação',
       'Data',
       'Doutor(a)',
+      'Paciente',
+      'Procedimento',
       'Repasse',
       'Pagamento',
       'Tipo',
@@ -151,6 +162,8 @@ export default function ScheduleReport() {
         item.status,
         item.date,
         item.professional_name,
+        item.patient_name,
+        item.procedure_name,
         item.value_transferred_mask,
         item.value_payment_mask,
         item.form_payment,
@@ -180,7 +193,17 @@ export default function ScheduleReport() {
         {
           layout: 'lightHorizontalLines',
           table: {
-            widths: ['auto', 'auto', 100, 80, 'auto', 'auto', 'auto'],
+            widths: [
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+              'auto',
+            ],
             headerRows: 1,
             body: [[...labels], ...data],
           },
@@ -276,11 +299,11 @@ export default function ScheduleReport() {
       ],
 
       defaultStyle: {
-        fontSize: 10,
+        fontSize: 7,
       },
       styles: {
         header: {
-          fontSize: 22,
+          fontSize: 20,
           bold: true,
           alignment: 'center',
         },
