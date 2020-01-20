@@ -278,7 +278,7 @@ export default function SchedulesList() {
               className: 'btn btn-sm btn-danger',
               onClick: handleCancelSchedule,
               buttonText: 'Cancelar',
-              status: ['Agendado', 'Pré-Confirmado'],
+              status: ['Agendado', 'Pré-Confirmado', 'Confirmado'],
             },
             {
               text: 'Confirmar',
