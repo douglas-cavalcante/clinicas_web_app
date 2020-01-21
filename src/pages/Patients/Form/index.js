@@ -177,16 +177,16 @@ export default function PatientForm({ match }) {
         second_phone: response.data.second_phone,
         whatsapp: response.data.whatsapp,
         // Dados sociais
-        indication_id: response.data.indication_id
+        indication_id: response.data.indication
           ? {
-              value: response.data.indication_id.id,
-              label: response.data.indication_id.label,
+              value: response.data.indication.id,
+              label: response.data.indication.name,
             }
           : null,
         ocupation_id: response.data.ocupation_id
           ? {
-              value: response.data.ocupation_id.id,
-              label: response.data.ocupation_id.label,
+              value: response.data.ocupation.id,
+              label: response.data.ocupation.name,
             }
           : null,
         nationality: response.data.nationality,
@@ -194,20 +194,20 @@ export default function PatientForm({ match }) {
         facebook: response.data.facebook,
         race_id: response.data.race_id
           ? {
-              value: response.data.race_id.id,
-              label: response.data.race_id.label,
+              value: response.data.race.id,
+              label: response.data.race.name,
             }
           : null,
         marital_status_id: response.data.marital_status_id
           ? {
-              value: response.data.marital_status_id.id,
-              label: response.data.marital_status_id.label,
+              value: response.data.maritalStatus.id,
+              label: response.data.maritalStatus.name,
             }
           : null,
         schooling_id: response.data.schooling_id
           ? {
-              value: response.data.schooling_id.id,
-              label: response.data.schooling_id.label,
+              value: response.data.schooling.id,
+              label: response.data.schooling.name,
             }
           : null,
       });
