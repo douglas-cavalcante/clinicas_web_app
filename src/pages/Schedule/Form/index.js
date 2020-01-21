@@ -16,11 +16,10 @@ import Description from '~/components/Description';
 import Header from '~/components/Header';
 
 import api from '~/services/api';
-import { saveIndicationRequest } from '~/store/modules/indication/actions';
+
 import { getProfessionalsOptionsRequest } from '~/store/modules/professional/actions';
 
 import Select from '~/components/Form/Select';
-import MoneyInput from '~/components/Form/MoneyInput';
 
 import Textarea from '~/components/Form/Textarea';
 import Show from '~/components/Show';
@@ -53,11 +52,14 @@ export default function SchedulesForm({ match, location }) {
       procedure_id: null,
       value: '',
       value_transferred: '',
+      value_payment: '',
       observations: '',
     },
 
     onSubmit: values => {
-      if (!values.procedure_id) {
+      if (!values.partnership_id) {
+        toast.error('O nome do convenio é obrigatório');
+      } else if (!values.procedure_id) {
         toast.error('O nome do procedimento é obrigatório');
       } else if (!values.patient_id) {
         toast.error('O nome do paciente é obrigatório');
@@ -135,6 +137,7 @@ export default function SchedulesForm({ match, location }) {
           : null,
         value: response.data.value,
         value_transferred: response.data.value_transferred,
+        value_payment: response.data.value_payment,
         observations: response.data.observations,
       });
     });
@@ -175,6 +178,8 @@ export default function SchedulesForm({ match, location }) {
               ...formik.values,
               procedure_id: null,
               value: '',
+              value_transferred: '',
+              value_payment: '',
             });
           })
           .catch(() => {});
@@ -191,8 +196,10 @@ export default function SchedulesForm({ match, location }) {
           .then(response => {
             formik.setValues({
               ...formik.values,
-              value: response.data.value,
-              value_transferred: response.data.value_transferred,
+              value: id ? formik.values.value : response.data.value,
+              value_transferred: id
+                ? formik.values.value_transferred
+                : response.data.value_transferred,
             });
           })
           .catch(() => {});
@@ -203,7 +210,7 @@ export default function SchedulesForm({ match, location }) {
 
   return (
     <>
-      <Header title={id ? 'Alterar obsevações' : 'Novo agendamento'} />
+      <Header title={id ? 'Alterar Agendamento' : 'Novo agendamento'} />
 
       <div className="content">
         <div className="container">
@@ -244,7 +251,6 @@ export default function SchedulesForm({ match, location }) {
                       handleChangeValue={formik.setFieldValue}
                       name="patient_id"
                       options={patientsOptions}
-                      disabled={id}
                     />
                   </Row>
 
@@ -256,8 +262,8 @@ export default function SchedulesForm({ match, location }) {
                       handleChangeValue={formik.setFieldValue}
                       name="partnership_id"
                       options={partnershipsOptions}
-                      disabled={id}
                     />
+
                     <Select
                       label="Procedimentos"
                       col="4"
@@ -265,18 +271,40 @@ export default function SchedulesForm({ match, location }) {
                       handleChangeValue={formik.setFieldValue}
                       name="procedure_id"
                       options={proceduresOptions}
-                      disabled={!formik.values.partnership_id || id}
+                      disabled={!formik.values.partnership_id}
                     />
 
                     <Input
                       label="Valor do procedimento"
                       col="3"
                       value={formik.values.value}
-                      handleChangeValue={formik.setFieldValue}
-                      id="valuePro"
-                      type="text"
-                      disabled
+                      onChange={formik.handleChange}
+                      name="value"
+                      type="number"
+                      disabled={!id}
                     />
+                  </Row>
+                  <Row>
+                    <Input
+                      label={`Valor de repasse:`}
+                      col="4"
+                      value={formik.values.value_transferred}
+                      onChange={formik.handleChange}
+                      name="value_transferred"
+                      type="number"
+                      disabled={!id}
+                    />
+                    <Show display={id}>
+                      <Input
+                        label="Valor do pagamento"
+                        col="3"
+                        value={formik.values.value_payment}
+                        onChange={formik.handleChange}
+                        name="value_payment"
+                        type="number"
+                        disabled={!id}
+                      />
+                    </Show>
                   </Row>
                   <Row>
                     <Textarea
