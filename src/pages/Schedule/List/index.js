@@ -19,6 +19,7 @@ import { getSchedulesRequest } from '~/store/modules/schedule/actions';
 
 import api from '~/services/api';
 import { getProfessionalsOptionsRequest } from '~/store/modules/professional/actions';
+import { store } from '~/store';
 
 const columns = [
   {
@@ -68,6 +69,8 @@ const columns = [
 
 export default function SchedulesList() {
   const dispatch = useDispatch();
+
+  const { profile } = store.getState().user;
 
   const formik = useFormik({
     initialValues: {
@@ -175,6 +178,35 @@ export default function SchedulesList() {
         },
         {
           label: 'Não',
+          onClick: () => {},
+        },
+      ],
+    });
+  }
+
+  function handleExcluirSchedule(item) {
+    confirmAlert({
+      title: 'Exclusão',
+      message:
+        'Deseja realmente excluir permanentemente esse agendamento? Essa ação não poderá ser desfeita.',
+      buttons: [
+        {
+          label: 'Sim. Eu desejo!',
+          onClick: () =>
+            api
+              .put(`schedules/delete/${item.id}`)
+              .then(() => {
+                toast.success('Deletado com sucesso!');
+                dispatch(
+                  getSchedulesRequest({
+                    date: formik.values.currentDate,
+                  })
+                );
+              })
+              .catch(() => {}),
+        },
+        {
+          label: 'Cancelar essa ação',
           onClick: () => {},
         },
       ],
@@ -313,6 +345,23 @@ export default function SchedulesList() {
               onClick: handleAuthorize,
               buttonText: 'Autorizar',
               status: ['Confirmado'],
+            },
+
+            {
+              text: 'Deletar',
+              className: 'btn btn-sm btn-danger',
+              onClick: handleExcluirSchedule,
+              buttonText: 'Deletar',
+              status:
+                profile.professional && profile.professional.role_id == '1'
+                  ? [
+                      'Agendado',
+                      'Pré-Confirmado',
+                      'Confirmado',
+                      'Cancelado',
+                      'Autorizado',
+                    ]
+                  : [],
             },
           ]}
         />
