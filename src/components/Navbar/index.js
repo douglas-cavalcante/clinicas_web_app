@@ -209,7 +209,13 @@ export default function Navbar() {
               </li>
             </Show>
 
-            <Show display={profile.professional.role_id == '1'}>
+            <Show
+              display={
+                profile.professional.role_id == '1' ||
+                profile.professional.role_id == '4' ||
+                profile.professional.role_id == '5'
+              }
+            >
               <li
                 className={`nav-item dropdown ${
                   showDropdownThree ? 'show' : ''
@@ -237,6 +243,16 @@ export default function Navbar() {
                       onClick={() => setShowDropdownTwo(false)}
                     >
                       Produção
+                    </Link>
+                  </li>
+
+                  <li>
+                    <Link
+                      to="/relatorios/marketing"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownTwo(false)}
+                    >
+                      Marketing
                     </Link>
                   </li>
                 </ul>

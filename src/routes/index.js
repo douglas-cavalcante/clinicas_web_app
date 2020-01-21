@@ -40,6 +40,7 @@ import AuthorizationForm from '~/pages/Schedule/autorization/Form';
 import MySchedules from '~/pages/MySchedules/List';
 import SchedulesManuallyForm from '~/pages/Schedule/manually';
 import ScheduleReport from '~/pages/Report/Schedules';
+import MarketingReport from '~/pages/Report/Marketing';
 
 export default function Routes() {
   return (
@@ -335,7 +336,7 @@ export default function Routes() {
         path="/relatorios/producao"
         component={ScheduleReport}
         isPrivate
-        permissions={[1]}
+        permissions={[1, 4, 5]}
       />
     </Switch>
   );
