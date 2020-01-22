@@ -305,6 +305,7 @@ export default function SchedulesList() {
               buttonText: 'Editar',
               status: [
                 'Pré-Confirmado',
+                'Agendado',
                 'Confirmado',
                 'Autorizado',
                 'Finalizado',
