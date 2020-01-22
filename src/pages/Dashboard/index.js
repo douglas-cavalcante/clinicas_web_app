@@ -13,12 +13,11 @@ export default function Dashboard() {
         >
           <img
             src={logo}
-            className="rounded ml-4 "
-            style={{ width: '300px', background: 'red' }}
+            className="rounded ml-4"
+            style={{ width: '200px' }}
             alt="..."
           />
 
-          <p className="lead">Seja bem-vindo a Evolutio.</p>
           <hr className="my-4" />
         </div>
       </div>

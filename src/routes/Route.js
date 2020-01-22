@@ -26,11 +26,11 @@ export default function RouteWrapper({
     !isPrivate &&
     !permissions.includes(profile.professional.role_id)
   ) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/home" />;
   }
 
   if (signed && !isPrivate) {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/home" />;
   }
 
   if (profile && profile.professional) {
@@ -38,7 +38,7 @@ export default function RouteWrapper({
       profile.professional &&
       !permissions.includes(profile.professional.role_id)
     ) {
-      return <Redirect to="/dashboard" />;
+      return <Redirect to="/home" />;
     }
   }
 

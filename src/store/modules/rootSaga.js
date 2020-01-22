@@ -27,6 +27,8 @@ import account from './financial/account/sagas';
 import financials from './financial/financials/sagas';
 import scheduleReport from './report/schedule/sagas';
 
+import marketingReport from './report/marketing/sagas';
+
 export default function* rootSaga() {
   return yield all([
     auth,
@@ -45,6 +47,8 @@ export default function* rootSaga() {
     // financeiro
     account,
     financials,
+    // financeiro
     scheduleReport,
+    marketingReport,
   ]);
 }

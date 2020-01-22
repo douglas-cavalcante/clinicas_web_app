@@ -40,6 +40,7 @@ import AuthorizationForm from '~/pages/Schedule/autorization/Form';
 import MySchedules from '~/pages/MySchedules/List';
 import SchedulesManuallyForm from '~/pages/Schedule/manually';
 import ScheduleReport from '~/pages/Report/Schedules';
+import MarketingReport from '~/pages/Report/Marketing';
 
 export default function Routes() {
   return (
@@ -48,7 +49,7 @@ export default function Routes() {
 
       <Route
         exact
-        path="/dashboard"
+        path="/home"
         component={Dashboard}
         isPrivate
         permissions={[1, 2, 3, 4, 5]}
@@ -341,7 +342,7 @@ export default function Routes() {
       <Route
         exact
         path="/relatorios/marketing"
-        component={() => {}}
+        component={MarketingReport}
         isPrivate
         permissions={[1, 4, 5]}
       />

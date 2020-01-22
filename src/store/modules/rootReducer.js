@@ -23,6 +23,7 @@ import account from './financial/account/reducer';
 
 import financials from './financial/financials/reducer';
 import scheduleReport from './report/schedule/reducer';
+import marketingReport from './report/marketing/reduder';
 
 export default combineReducers({
   auth,
@@ -43,4 +44,5 @@ export default combineReducers({
   account,
   financials,
   scheduleReport,
+  marketingReport,
 });

@@ -37,7 +37,7 @@ export default function Navbar() {
   return (
     <nav className="main-header navbar navbar-expand-md navbar-light navbar-primary">
       <div className="container">
-        <Link to="/dashboard" className="navbar-brand">
+        <Link to="/home" className="navbar-brand">
           <span className="brand-text font-weight-bold ml-2 text-light">
             EVOLUTIO
           </span>
