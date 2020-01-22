@@ -156,10 +156,12 @@ export default function PatientForm({ match }) {
         age: response.data.age,
         father_name: response.data.father_name,
         mother_name: response.data.mother_name,
-        gender: {
-          value: response.data.gender,
-          label: response.data.gender === 'M' ? 'Masculino' : 'Feminino',
-        },
+        gender: response.data.gender
+          ? {
+              value: response.data.gender,
+              label: response.data.gender === 'M' ? 'Masculino' : 'Feminino',
+            }
+          : null,
         // Documentos
         cpf: response.data.cpf,
         rg: response.data.rg,
