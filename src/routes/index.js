@@ -198,6 +198,14 @@ export default function Routes() {
 
       <Route
         exact
+        path="/agendamentos/encaixe"
+        component={SchedulesManuallyForm}
+        isPrivate
+        permissions={[1, 2, 3]}
+      />
+
+      <Route
+        exact
         path="/agendamentos"
         component={SchedulesList}
         isPrivate
@@ -215,14 +223,6 @@ export default function Routes() {
         exact
         path="/agendamentos/:id"
         component={SchedulesForm}
-        isPrivate
-        permissions={[1, 2, 3]}
-      />
-
-      <Route
-        exact
-        path="/agendamentos/encaixe"
-        component={SchedulesManuallyForm}
         isPrivate
         permissions={[1, 2, 3]}
       />

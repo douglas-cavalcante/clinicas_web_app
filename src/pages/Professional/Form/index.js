@@ -130,10 +130,12 @@ export default function ProfessionalForm({ match }) {
         name: response.data.name,
         email: response.data.email,
         date_birth: format(new Date(response.data.date_birth), 'yyyy-MM-dd'),
-        sexo: {
-          value: response.data.sexo,
-          label: response.data.sexo === 'M' ? 'Masculino' : 'Feminino',
-        },
+        sexo: response.data.sexo
+          ? {
+              value: response.data.sexo,
+              label: response.data.sexo === 'M' ? 'Masculino' : 'Feminino',
+            }
+          : null,
         council: response.data.council,
         registration_number: response.data.registration_number,
         ocupation_id: response.data.ocupation

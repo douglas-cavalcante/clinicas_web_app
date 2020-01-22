@@ -114,7 +114,6 @@ export default function SchedulesManuallyForm() {
 
   useEffect(() => {
     async function loadProcedureInfo() {
-      console.log('carregando');
       if (formik.values.procedure_id) {
         await api
           .get(`procedures/${formik.values.procedure_id.value}`)
