@@ -13,7 +13,8 @@ export default function marketingReport(state = INITIAL_STATE, action) {
         break;
       }
       case '@marketing_report/GET_MARKETING_REPORT_SUCCESS': {
-        draft.data = action.payload.data;
+        draft.data = action.payload.data.data;
+        draft.pdf = action.payload.data.pdf;
         draft.loading = false;
         break;
       }

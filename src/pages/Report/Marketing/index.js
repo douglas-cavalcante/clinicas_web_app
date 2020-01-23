@@ -23,6 +23,9 @@ import DropdownButton from '~/components/DropdownButton';
 import { getMarketingReportRequest } from '~/store/modules/report/marketing/actions';
 import CreatableSelect from '~/components/Form/CreatableSelect/CreatableSelect';
 import { logo } from '~/utils/utils';
+import Select from '~/components/Form/Select';
+import { getProfessionalsOptionsRequest } from '~/store/modules/professional/actions';
+import DatePickerInput from '~/components/Form/DatePicker';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const columns = [
@@ -32,156 +35,68 @@ const columns = [
     hidden: true,
   },
   {
-    dataField: 'count',
-    text: '#',
-  },
-  {
-    dataField: 'status',
-    text: 'Situação',
-  },
-  {
-    dataField: 'start',
-    text: 'Início',
-  },
-  {
-    dataField: 'date',
-    text: 'Data',
-  },
-  {
-    dataField: 'procedure_name',
-    text: 'Procedimento',
-  },
-  {
-    dataField: 'patient_name',
-    text: 'Nome',
-  },
-  {
-    dataField: 'patient_date_birth',
-    text: 'Data de nascimento',
-  },
-  {
-    dataField: 'professional_name',
+    dataField: 'profissional',
     text: 'Profissional',
   },
   {
-    dataField: 'patient_email',
-    text: 'Email',
-  },
-  {
-    dataField: 'patient_first_phone',
-    text: '1º contato',
-  },
-  {
-    dataField: 'neighborhood',
-    text: 'Bairro',
-  },
-  {
-    dataField: 'patient_second_phone',
-    text: '2º contato',
-  },
-  {
-    dataField: 'patient_instagram',
-    text: 'Instagram',
-  },
-  {
-    dataField: 'patient_whatsapp',
-    text: 'Whatsapp',
-  },
-
-  {
-    dataField: 'indication_name',
+    dataField: 'indicacao',
     text: 'Indicação',
+  },
+  {
+    dataField: 'quantidade',
+    text: 'Qtd',
   },
 ];
 
 export default function MarketingReport() {
   const dispatch = useDispatch();
 
-  const [indicationsOptions, setIndicationsOptions] = useState([]);
   const marketingReport = useSelector(state => state.marketingReport);
+
+  const professional = useSelector(state => state.professional);
 
   const formik = useFormik({
     initialValues: {
-      indication_id: { value: '', label: 'Todos' },
+      startDate: new Date(),
+      endDate: new Date(),
+      professional_id: { value: '', label: 'Todos' },
     },
     onSubmit: values => {
       dispatch(
         getMarketingReportRequest({
           ...values,
-          indication_id: values.indication_id
-            ? values.indication_id.value
+          startDate: new Date(
+            values.startDate.getFullYear(),
+            values.startDate.getMonth(),
+            values.startDate.getDate()
+          ),
+          endDate: new Date(
+            values.endDate.getFullYear(),
+            values.endDate.getMonth(),
+            values.endDate.getDate()
+          ),
+          professional_id: values.professional_id
+            ? values.professional_id.value
             : null,
         })
       );
     },
   });
 
-  async function handleLoadIndicationsOptions(inputValue = '') {
-    await api
-      .get(`indications?term=${inputValue}`)
-      .then(response => {
-        setIndicationsOptions(response.data);
-      })
-      .catch(() => {});
-  }
-
-  async function handleCreateIndicationOption(inputValue) {
-    await api
-      .post('indications', { name: inputValue })
-      .then(response => {
-        toast.success(`${inputValue} adicionado`);
-        formik.setValues({
-          ...formik.values,
-          indication_id: response.data,
-        });
-      })
-      .catch(() => {
-        toast.error('Ocorreu um erro ao tentar adicionar essa opção');
-      });
-  }
-
-  useEffect(() => {
-    handleLoadIndicationsOptions();
-  }, []);
-
   function getPdf(pageOrientation) {
-    const labels = [
-      '#',
-      'status',
-      'Início',
-      'Data',
-      'Procedimento',
-      'Paciente',
-      'Nascimento',
-      'Profissional',
-      'Email',
-      '1º Contato',
-      '2º Contato',
-      'Instagram',
-      'Whatsapp',
-      'Indicação',
-    ];
-
-    const data = [];
-
-    marketingReport.data.map(item => {
-      data.push([
-        item.count,
-        item.status,
-        item.start,
-        item.date,
-        item.procedure_name,
-        item.patient_name,
-        item.patient_date_birth,
-        item.professional_name,
-
-        item.patient_first_phone,
-        item.patient_email,
-        item.patient_second_phone,
-        item.patient_instagram,
-        item.patient_whatsapp,
-        item.indication_name,
-      ]);
+    const data = marketingReport.pdf.map(item => {
+      return [
+        { text: item.profissional, style: 'header' },
+        item.indicacoes.map(indicacao => {
+          return {
+            type: 'square',
+            ul: [
+              `Indicador: ${indicacao.indicacao}`,
+              `Quantidade: ${indicacao.quantidade} \n\n`,
+            ],
+          };
+        }),
+      ];
     });
 
     const docDefinition = {
@@ -198,37 +113,15 @@ export default function MarketingReport() {
         {
           image: logo,
 
-          width: 50,
+          width: 80,
           style: 'rightme',
         },
 
-        {
-          layout: 'lightHorizontalLines',
-          table: {
-            widths: [
-              'auto',
-              'auto',
-              'auto',
-              'auto',
-              'auto',
-              'auto',
-              'auto',
-              'auto',
-              'auto',
-              40,
-              'auto',
-              'auto',
-              40,
-              'auto',
-            ],
-            headerRows: 1,
-            body: [[...labels], ...data],
-          },
-        },
+        ...data,
       ],
 
       defaultStyle: {
-        fontSize: 7,
+        fontSize: 12,
       },
       styles: {
         header: {
@@ -251,6 +144,10 @@ export default function MarketingReport() {
     toast.success('Sucesso! Verifique sua caixa de download');
   }
 
+  useEffect(() => {
+    dispatch(getProfessionalsOptionsRequest());
+  }, []);
+
   return (
     <>
       <Header title="Relatório de marketing" />
@@ -259,16 +156,26 @@ export default function MarketingReport() {
         <div className="container">
           <form onSubmit={formik.handleSubmit}>
             <Row>
-              <div className="col-md-12">
-                <CreatableSelect
-                  label="Indicação"
+              <div className="col-md-6">
+                <DatePickerInput
+                  name="startDate"
+                  onChange={formik.setFieldValue}
+                  value={formik.values.startDate}
+                />
+                <DatePickerInput
+                  name="endDate"
+                  onChange={formik.setFieldValue}
+                  value={formik.values.endDate}
+                />
+              </div>
+              <div className="col-md-6">
+                <Select
+                  label="Profissional"
                   col="12"
-                  value={formik.values.indication_id}
+                  value={formik.values.professional_id}
                   handleChangeValue={formik.setFieldValue}
-                  name="indication_id"
-                  options={indicationsOptions}
-                  handleCreate={handleCreateIndicationOption}
-                  loadOptions={handleLoadIndicationsOptions}
+                  name="professional_id"
+                  options={professional.options}
                 />
 
                 <button
