@@ -21,7 +21,7 @@ import { FaRegFilePdf } from 'react-icons/fa';
 import DropdownButton from '~/components/DropdownButton';
 
 import { getMarketingReportRequest } from '~/store/modules/report/marketing/actions';
-import CreatableSelect from '~/components/Form/CreatableSelect/CreatableSelect';
+
 import { logo } from '~/utils/utils';
 import Select from '~/components/Form/Select';
 import { getProfessionalsOptionsRequest } from '~/store/modules/professional/actions';
@@ -60,6 +60,7 @@ export default function MarketingReport() {
       startDate: new Date(),
       endDate: new Date(),
       professional_id: { value: '', label: 'Todos' },
+      status: { value: '', label: 'Todos' },
     },
     onSubmit: values => {
       dispatch(
@@ -78,6 +79,7 @@ export default function MarketingReport() {
           professional_id: values.professional_id
             ? values.professional_id.value
             : null,
+          status: values.status ? values.status.value : null,
         })
       );
     },
@@ -86,7 +88,7 @@ export default function MarketingReport() {
   function getPdf(pageOrientation) {
     const data = marketingReport.pdf.map(item => {
       return [
-        { text: item.profissional, style: 'header' },
+        { text: `${item.profissional} \n\n`, style: 'header' },
         item.indicacoes.map(indicacao => {
           return {
             type: 'square',
@@ -176,6 +178,22 @@ export default function MarketingReport() {
                   handleChangeValue={formik.setFieldValue}
                   name="professional_id"
                   options={professional.options}
+                />
+
+                <Select
+                  label="Situação"
+                  col="12"
+                  value={formik.values.status}
+                  handleChangeValue={formik.setFieldValue}
+                  name="status"
+                  options={[
+                    { value: 'Agendado', label: 'Agendado' },
+                    { value: 'Pré-Confirmado', label: 'Pré-Confirmado' },
+                    { value: 'Cancelado', label: 'Cancelado' },
+                    { value: 'Confirmado', label: 'Confirmado' },
+                    { value: 'Autorizado', label: 'Autorizado' },
+                    { value: 'Finalizado', label: 'Finalizado' },
+                  ]}
                 />
 
                 <button
