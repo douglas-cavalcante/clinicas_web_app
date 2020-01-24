@@ -42,6 +42,8 @@ import SchedulesManuallyForm from '~/pages/Schedule/manually';
 import ScheduleReport from '~/pages/Report/Schedules';
 import MarketingReport from '~/pages/Report/Marketing';
 
+import HistoryList from '~/pages/History/List';
+
 export default function Routes() {
   return (
     <Switch>
@@ -345,6 +347,14 @@ export default function Routes() {
         component={MarketingReport}
         isPrivate
         permissions={[1, 4, 5]}
+      />
+
+      <Route
+        exact
+        path="/historico/:id"
+        component={HistoryList}
+        isPrivate
+        permissions={[1, 2, 3, 4, 5]}
       />
     </Switch>
   );

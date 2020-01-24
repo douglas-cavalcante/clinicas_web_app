@@ -37,6 +37,10 @@ export default function PatientList() {
     history.push(`pacientes/${item.id}`);
   }
 
+  function handleRedirectToHistoryListPage(item) {
+    history.push(`historico/${item.id}`);
+  }
+
   return (
     <>
       <Header
@@ -57,6 +61,13 @@ export default function PatientList() {
                 className: 'btn btn-sm btn-info',
                 onClick: handleRedirectToEditPage,
                 buttonText: 'Editar',
+                keyConditionButtonText: null,
+              },
+              {
+                text: 'Histórico',
+                className: 'btn btn-sm btn-warning',
+                onClick: handleRedirectToHistoryListPage,
+                buttonText: 'Abrir',
                 keyConditionButtonText: null,
               },
             ]}
