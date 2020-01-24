@@ -45,7 +45,7 @@ export default function AccountForm({ match }) {
 
   useEffect(() => {
     async function loadRoom() {
-      await api.get(`rooms/${id}`).then(response => {
+      await api.get(`accounts/${id}`).then(response => {
         formik.setValues({
           ...formik.values,
           id: response.data.id,
