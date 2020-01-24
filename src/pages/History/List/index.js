@@ -21,7 +21,7 @@ export default function HistoryList({ match }) {
     }
 
     loadHistory();
-  });
+  }, []);
   return (
     <>
       <Header title="Histórico do paciente" />
