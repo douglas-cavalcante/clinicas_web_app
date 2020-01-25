@@ -78,6 +78,7 @@ const columns = [
 export default function ScheduleReport() {
   const dispatch = useDispatch();
 
+  const [idProfessional, setIdProfessional] = useState('');
   const [formPaymentsOptions, setFormPaymentsOptions] = useState([]);
 
   const professional = useSelector(state => state.professional);
@@ -109,7 +110,9 @@ export default function ScheduleReport() {
             values.endDate.getMonth(),
             values.endDate.getDate()
           ),
-          professional_id: values.professional_id
+          professional_id: idProfessional
+            ? idProfessional
+            : values.professional_id
             ? values.professional_id.value
             : null,
           form_payment_id: values.form_payment_id
@@ -132,7 +135,16 @@ export default function ScheduleReport() {
   }
 
   useEffect(() => {
-    dispatch(getProfessionalsOptionsRequest());
+    if (
+      user.profile.professional &&
+      (user.profile.professional.role_id == 4 ||
+        user.profile.professional.role_id == 5)
+    ) {
+      setIdProfessional(user.profile.professional.id);
+    } else {
+      dispatch(getProfessionalsOptionsRequest());
+    }
+
     dispatch(getUsersOptionsRequest());
     handleLoadFormPaymentOptions();
   }, []);
@@ -362,6 +374,7 @@ export default function ScheduleReport() {
                   handleChangeValue={formik.setFieldValue}
                   name="professional_id"
                   options={professional.options}
+                  disabled={idProfessional}
                 />
                 <Select
                   label="Situação"
