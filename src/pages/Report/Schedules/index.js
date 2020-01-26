@@ -232,9 +232,23 @@ export default function ScheduleReport() {
         {
           text:
             formik.values.change_value === false
-              ? `\n \n \n Total do valor de pagamento: ${formatValues(
+              ? `\n \nTotal do valor de pagamento: ${formatValues(
                   somaValorPagamento
-                )} \n \n \n \n`
+                )} \n`
+              : '',
+          style: {
+            fontSize: 14,
+            bold: true,
+            margin: [10, 0, 0, 10],
+          },
+        },
+
+        {
+          text:
+            formik.values.change_value === false
+              ? `\n \nTicket de consulta: ${formatValues(
+                  somaValorPagamento / scheduleReport.data.length
+                )} \n`
               : '',
           style: {
             fontSize: 14,
@@ -246,10 +260,33 @@ export default function ScheduleReport() {
         {
           text:
             formik.values.change_value === true
-              ? `\n \n \n Total do valor de repasse: ${formatValues(
+              ? `\n Total do valor de repasse: ${formatValues(
                   somaValorTransferido
-                )} \n \n \n \n`
+                )} \n`
               : '',
+          style: {
+            fontSize: 14,
+            margin: [10, 0, 0, 10],
+            bold: true,
+          },
+        },
+
+        {
+          text:
+            formik.values.change_value === true
+              ? `\n Ticket de consulta: ${formatValues(
+                  somaValorTransferido / scheduleReport.data.length
+                )} \n`
+              : '',
+          style: {
+            fontSize: 14,
+            margin: [10, 0, 0, 10],
+            bold: true,
+          },
+        },
+
+        {
+          text: `\n Total de procedimentos: ${scheduleReport.data.length} \n \n`,
           style: {
             fontSize: 14,
             margin: [10, 0, 0, 10],
