@@ -232,7 +232,7 @@ export default function ScheduleReport() {
         {
           text:
             formik.values.change_value === false
-              ? `\n \nTotal do valor de pagamento: ${formatValues(
+              ? `\n Total do valor de pagamento: ${formatValues(
                   somaValorPagamento
                 )} \n`
               : '',
@@ -246,7 +246,7 @@ export default function ScheduleReport() {
         {
           text:
             formik.values.change_value === false
-              ? `\n \nTicket de consulta: ${formatValues(
+              ? `\nTicket de consulta: ${formatValues(
                   somaValorPagamento / scheduleReport.data.length
                 )} \n`
               : '',
