@@ -5,10 +5,12 @@ import { toast } from 'react-toastify';
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 import { useFormik } from 'formik';
+import { FaRegFilePdf } from 'react-icons/fa';
+import { format } from 'date-fns';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
-
+import { ptBR } from 'date-fns/locale';
 import Header from '~/components/Header';
 import DatePickerInput from '~/components/Form/DatePicker';
 import Select from '~/components/Form/Select';
@@ -19,9 +21,9 @@ import api from '~/services/api';
 import { getProfessionalsOptionsRequest } from '~/store/modules/professional/actions';
 import Table from '~/components/Table';
 import { getSchedulesReportRequest } from '~/store/modules/report/schedule/actions';
-import { FaRegFilePdf } from 'react-icons/fa';
+
 import DropdownButton from '~/components/DropdownButton';
-import { format } from 'date-fns';
+
 import { formatValues, logo } from '~/utils/utils';
 import SwitchButton from '~/components/Form/SwitchButton';
 import { getUsersOptionsRequest } from '~/store/modules/user/actions';
@@ -203,7 +205,7 @@ export default function ScheduleReport() {
       content: [
         {
           image: logo,
-          width: 50,
+          width: 80,
           style: 'rightme',
         },
 
@@ -230,11 +232,13 @@ export default function ScheduleReport() {
         {
           text:
             formik.values.change_value === false
-              ? `\n Total do valor de pagamento: ${formatValues(
+              ? `\n \n \n Total do valor de pagamento: ${formatValues(
                   somaValorPagamento
-                )} \n`
+                )} \n \n \n \n`
               : '',
           style: {
+            fontSize: 14,
+            bold: true,
             margin: [10, 0, 0, 10],
           },
         },
@@ -242,24 +246,42 @@ export default function ScheduleReport() {
         {
           text:
             formik.values.change_value === true
-              ? `Total do valor de repasse: ${formatValues(
+              ? `\n \n \n Total do valor de repasse: ${formatValues(
                   somaValorTransferido
-                )} \n \n`
+                )} \n \n \n \n`
               : '',
           style: {
+            fontSize: 14,
             margin: [10, 0, 0, 10],
+            bold: true,
           },
         },
 
         {
           text: [
             {
-              text: `EU, ${formik.values.professional_id.label.toUpperCase()}, RECEBI DA CLÍNICA,\n`,
+              text: `EU, `,
               fontSize: 10,
               style: {
                 alignment: 'center',
               },
             },
+            {
+              text: `${formik.values.professional_id.label.toUpperCase()} `,
+              fontSize: 10,
+              style: {
+                alignment: 'center',
+                decoration: 'underline',
+              },
+            },
+            {
+              text: `,RECEBI DA CLÍNICA,\n`,
+              fontSize: 10,
+              style: {
+                alignment: 'center',
+              },
+            },
+
             {
               text: `A QUANTIA DE ${
                 formik.values.change_value
@@ -272,15 +294,25 @@ export default function ScheduleReport() {
               },
             },
             {
-              text: `REFERENTE AOS ATENDIMENTOS CLÍNICOS DO PERÍODO DE ${format(
+              text: `REFERENTE AOS ATENDIMENTOS CLÍNICOS DO PERÍODO DE `,
+              fontSize: 10,
+              style: {
+                alignment: 'center',
+              },
+            },
+
+            {
+              text: `${format(
                 formik.values.startDate,
                 'dd/MM/yyyy'
               )} a  ${format(formik.values.endDate, 'dd/MM/yyyy')} \n `,
               fontSize: 10,
               style: {
                 alignment: 'center',
+                bold: true,
               },
             },
+
             {
               text: `FORTALEZA, CEARÁ, ${format(
                 new Date(),
@@ -292,7 +324,7 @@ export default function ScheduleReport() {
               },
             },
             {
-              text: 'DECLARAÇÃO \n\n\n',
+              text: ' \n DECLARAÇÃO \n\n\n',
               fontSize: 12,
               bold: true,
               style: {
