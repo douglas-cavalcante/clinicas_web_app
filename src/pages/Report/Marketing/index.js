@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -13,8 +13,6 @@ import Header from '~/components/Header';
 
 import Row from '~/components/Bootstrap/Row';
 
-import api from '~/services/api';
-
 import Table from '~/components/Table';
 
 import { FaRegFilePdf } from 'react-icons/fa';
@@ -26,6 +24,7 @@ import { logo } from '~/utils/utils';
 import Select from '~/components/Form/Select';
 import { getProfessionalsOptionsRequest } from '~/store/modules/professional/actions';
 import DatePickerInput from '~/components/Form/DatePicker';
+import Excel from '~/components/Excel';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const columns = [
@@ -34,9 +33,14 @@ const columns = [
     text: '#',
     hidden: true,
   },
+
   {
     dataField: 'profissional',
     text: 'Profissional',
+  },
+  {
+    dataField: 'procedimento',
+    text: 'Procedimento',
   },
   {
     dataField: 'indicacao',
@@ -86,6 +90,7 @@ export default function MarketingReport() {
   });
 
   function getPdf(pageOrientation) {
+    /*
     const data = marketingReport.pdf.map(item => {
       return [
         { text: `${item.profissional} \n\n`, style: 'header' },
@@ -99,6 +104,22 @@ export default function MarketingReport() {
           };
         }),
       ];
+    });
+
+
+    */
+
+    const labels = ['Profissional', 'Procedimento', 'Indicação', 'Quantidade'];
+
+    const data = [];
+
+    marketingReport.data.map(item => {
+      data.push([
+        item.profissional,
+        item.procedimento,
+        item.indicacao,
+        item.quantidade,
+      ]);
     });
 
     const docDefinition = {
@@ -119,7 +140,14 @@ export default function MarketingReport() {
           style: 'rightme',
         },
 
-        ...data,
+        {
+          layout: 'lightHorizontalLines',
+          table: {
+            widths: ['auto', 'auto', 'auto', 'auto'],
+            headerRows: 1,
+            body: [[...labels], ...data],
+          },
+        },
       ],
 
       defaultStyle: {
@@ -205,6 +233,31 @@ export default function MarketingReport() {
               </div>
             </Row>
           </form>
+          <div className="float-right">
+            <Excel
+              columns={[
+                {
+                  label: 'Profissional',
+                  value: 'profissional',
+                },
+                {
+                  label: 'Procedimento',
+                  value: 'procedimento',
+                },
+                {
+                  label: 'Indicador',
+                  value: 'indicacao',
+                },
+                {
+                  label: 'Qtd',
+                  value: 'quantidade',
+                },
+              ]}
+              data={marketingReport.data}
+              name="marketing"
+              filename="relatorio"
+            />
+          </div>
           <div className="float-right">
             <DropdownButton
               buttonLabel={<FaRegFilePdf color="#D4241B" size={30} />}
