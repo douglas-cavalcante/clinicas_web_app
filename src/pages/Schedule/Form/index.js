@@ -29,6 +29,7 @@ import {
 } from '~/store/modules/patient/actions';
 import { saveScheduleRequest } from '~/store/modules/schedule/actions';
 import { zonedTimeToUtc } from 'date-fns-tz';
+import CreatableSelect from '~/components/Form/CreatableSelect/CreatableSelect';
 
 export default function SchedulesForm({ match, location }) {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ export default function SchedulesForm({ match, location }) {
   const [proceduresOptions, setProceduresOptions] = useState([]);
   const [partnershipsOptions, setPartnershipsOptions] = useState([]);
   const [patientsOptions, setPatientsOptions] = useState([]);
+  const [indicationsOptions, setIndicationsOptions] = useState([]);
 
   const addPatientMode = useSelector(state => state.patient.addPatientMode);
 
@@ -50,6 +52,7 @@ export default function SchedulesForm({ match, location }) {
       partnership_id: null,
       professional_id: null,
       procedure_id: null,
+      indication_id: null,
       value: '',
       value_transferred: '',
       value_payment: '',
@@ -70,6 +73,9 @@ export default function SchedulesForm({ match, location }) {
             patient_id: values.patient_id.value,
             partnership_id: values.partnership_id.value,
             procedure_id: values.procedure_id.value,
+            indication_id: values.indication_id
+              ? values.indication_id.value
+              : null,
             professional_id: data.item.professional_id,
             date: zonedTimeToUtc(data.currentDate, 'America/Sao_Paulo'),
             room_id: data.item.room_id,
@@ -106,6 +112,30 @@ export default function SchedulesForm({ match, location }) {
     },
   });
 
+  async function handleLoadIndicationsOptions(inputValue = '') {
+    await api
+      .get(`indications?term=${inputValue}`)
+      .then(response => {
+        setIndicationsOptions(response.data);
+      })
+      .catch(() => {});
+  }
+
+  async function handleCreateIndicationOption(inputValue) {
+    await api
+      .post('indications', { name: inputValue })
+      .then(response => {
+        toast.success(`${inputValue} adicionado`);
+        formik.setValues({
+          ...formik.values,
+          indication_id: response.data,
+        });
+      })
+      .catch(() => {
+        toast.error('Ocorreu um erro ao tentar adicionar essa opção');
+      });
+  }
+
   async function loadSchedule() {
     await api.get(`schedules/${id}`).then(response => {
       formik.setValues({
@@ -115,6 +145,12 @@ export default function SchedulesForm({ match, location }) {
           ? {
               value: response.data.patient.id,
               label: response.data.patient.name,
+            }
+          : null,
+        indication_id: response.data.indication
+          ? {
+              value: response.data.indication.id,
+              label: response.data.indication.name,
             }
           : null,
         partnership_id: response.data.procedure.partnership
@@ -156,6 +192,7 @@ export default function SchedulesForm({ match, location }) {
     dispatch(getProfessionalsOptionsRequest());
     getProceduresOptions();
     loadPatientsOptions();
+    handleLoadIndicationsOptions();
     if (id) loadSchedule();
   }, []);
 
@@ -305,6 +342,18 @@ export default function SchedulesForm({ match, location }) {
                         disabled={!id}
                       />
                     </Show>
+
+                    <CreatableSelect
+                      label="Indicação"
+                      col="4"
+                      value={formik.values.indication_id}
+                      handleChangeValue={formik.setFieldValue}
+                      name="indication_id"
+                      options={indicationsOptions}
+                      handleCreate={handleCreateIndicationOption}
+                      loadOptions={handleLoadIndicationsOptions}
+                      disabled={id}
+                    />
                   </Row>
                   <Row>
                     <Textarea

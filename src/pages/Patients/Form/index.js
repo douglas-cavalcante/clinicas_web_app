@@ -552,16 +552,6 @@ export default function PatientForm({ match }) {
 
                 <Row>
                   <CreatableSelect
-                    label="Indicação"
-                    col="4"
-                    value={formik.values.indication_id}
-                    handleChangeValue={formik.setFieldValue}
-                    name="indication_id"
-                    options={indicationsOptions}
-                    handleCreate={handleCreateIndicationOption}
-                    loadOptions={handleLoadIndicationsOptions}
-                  />
-                  <CreatableSelect
                     label="Ocupação"
                     col="4"
                     value={formik.values.ocupation_id}
