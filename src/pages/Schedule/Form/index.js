@@ -352,7 +352,6 @@ export default function SchedulesForm({ match, location }) {
                       options={indicationsOptions}
                       handleCreate={handleCreateIndicationOption}
                       loadOptions={handleLoadIndicationsOptions}
-                      disabled={id}
                     />
                   </Row>
                   <Row>
