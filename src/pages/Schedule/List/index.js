@@ -361,6 +361,7 @@ export default function SchedulesList() {
                       'Confirmado',
                       'Cancelado',
                       'Autorizado',
+                      'Finalizado',
                     ]
                   : [],
             },
