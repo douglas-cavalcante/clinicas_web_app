@@ -65,7 +65,7 @@ export default function Routes() {
         path="/relatorios/movimentacoes"
         component={FinancialReport}
         isPrivate
-        permissions={[1, 4, 5]}
+        permissions={[1]}
       />
 
       <Route
