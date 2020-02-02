@@ -145,20 +145,7 @@ export default function MySchedules() {
             </Row>
           </form>
         </div>
-        <TableSchedule
-          keyField="key"
-          data={schedule.data}
-          columns={columns}
-          extrasColumns={[
-            {
-              text: 'Finalizar',
-              className: 'btn btn-sm btn-success',
-              onClick: handleEnd,
-              buttonText: 'Finalizar',
-              status: 'Autorizado',
-            },
-          ]}
-        />
+        <TableSchedule keyField="key" data={schedule.data} columns={columns} />
       </div>
     </>
   );
