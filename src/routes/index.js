@@ -43,11 +43,20 @@ import ScheduleReport from '~/pages/Report/Schedules';
 import MarketingReport from '~/pages/Report/Marketing';
 
 import HistoryList from '~/pages/History/List';
+import ProcedureReport from '~/pages/Report/Procedures';
 
 export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={SignIn} permissions={[1]} />
+
+      <Route
+        exact
+        path="/relatorios/procedimentos"
+        component={ProcedureReport}
+        isPrivate
+        permissions={[1, 4, 5]}
+      />
 
       <Route
         exact

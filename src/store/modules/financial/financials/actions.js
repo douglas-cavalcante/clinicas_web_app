@@ -14,7 +14,6 @@ export function getFinancialsSuccess(data) {
   };
 }
 export function saveFinancialRequest(data) {
-  console.log(data);
   return {
     type: '@financials/SAVE_FINANCIAL_REQUEST',
     payload: {

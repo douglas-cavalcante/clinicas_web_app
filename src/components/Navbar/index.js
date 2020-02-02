@@ -255,6 +255,15 @@ export default function Navbar() {
                       Marketing
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      to="/relatorios/procedimentos"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownTwo(false)}
+                    >
+                      Procedimentos
+                    </Link>
+                  </li>
                 </ul>
               </li>
             </Show>
