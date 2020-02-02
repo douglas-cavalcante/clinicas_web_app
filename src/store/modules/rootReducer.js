@@ -27,6 +27,7 @@ import scheduleReport from './report/schedule/reducer';
 import marketingReport from './report/marketing/reduder';
 import procedureReport from './report/procedures/reducer';
 import financialReport from './report/financials/reducer';
+import patientReport from './report/patients/reducer';
 
 export default combineReducers({
   auth,
@@ -50,4 +51,5 @@ export default combineReducers({
   marketingReport,
   procedureReport,
   financialReport,
+  patientReport,
 });

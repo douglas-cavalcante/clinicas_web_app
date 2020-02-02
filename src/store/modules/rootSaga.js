@@ -30,6 +30,7 @@ import scheduleReport from './report/schedule/sagas';
 import marketingReport from './report/marketing/sagas';
 import procedureReport from './report/procedures/sagas';
 import financialReport from './report/financials/sagas';
+import patientReport from './report/patients/sagas';
 
 export default function* rootSaga() {
   return yield all([
@@ -54,5 +55,6 @@ export default function* rootSaga() {
     marketingReport,
     procedureReport,
     financialReport,
+    patientReport,
   ]);
 }

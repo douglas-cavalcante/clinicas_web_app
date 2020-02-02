@@ -273,6 +273,15 @@ export default function Navbar() {
                       Movimentações
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      to="/relatorios/pacientes"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownTwo(false)}
+                    >
+                      Pacientes
+                    </Link>
+                  </li>
                 </ul>
               </li>
             </Show>

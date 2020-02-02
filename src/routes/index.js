@@ -45,6 +45,7 @@ import MarketingReport from '~/pages/Report/Marketing';
 import HistoryList from '~/pages/History/List';
 import ProcedureReport from '~/pages/Report/Procedures';
 import FinancialReport from '~/pages/Report/Financials';
+import PatientReport from '~/pages/Report/Patients';
 
 export default function Routes() {
   return (
@@ -63,6 +64,14 @@ export default function Routes() {
         exact
         path="/relatorios/movimentacoes"
         component={FinancialReport}
+        isPrivate
+        permissions={[1, 4, 5]}
+      />
+
+      <Route
+        exact
+        path="/relatorios/pacientes"
+        component={PatientReport}
         isPrivate
         permissions={[1, 4, 5]}
       />
