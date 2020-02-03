@@ -288,11 +288,7 @@ export default function ProceduresReport() {
               ]}
             />
           </div>
-          <Table
-            keyField="procedimento"
-            data={proceduresReport.data}
-            columns={columns}
-          />
+          <Table keyField="id" data={proceduresReport.data} columns={columns} />
         </div>
       </div>
     </>
