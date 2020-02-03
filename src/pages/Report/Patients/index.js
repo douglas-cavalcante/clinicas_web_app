@@ -327,11 +327,7 @@ export default function PatientsReport() {
               ]}
             />
           </div>
-          <Table
-            keyField="procedimento"
-            data={patientReport.data}
-            columns={columns}
-          />
+          <Table keyField="id" data={patientReport.data} columns={columns} />
         </div>
       </div>
     </>
