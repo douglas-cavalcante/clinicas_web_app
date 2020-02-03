@@ -84,34 +84,6 @@ export default function MySchedules() {
 
   const schedule = useSelector(state => state.schedule);
 
-  function handleEnd(item) {
-    confirmAlert({
-      title: 'Finalização',
-      message: 'Confirma a finalização total dessa consulta ?',
-      buttons: [
-        {
-          label: 'Sim',
-          onClick: () =>
-            api
-              .put(`schedules/end/${item.id}`)
-              .then(() => {
-                toast.success('Finalizado com sucesso!');
-                dispatch(
-                  getMySchedulesRequest({
-                    date: formik.values.currentDate,
-                  })
-                );
-              })
-              .catch(() => {}),
-        },
-        {
-          label: 'Não',
-          onClick: () => {},
-        },
-      ],
-    });
-  }
-
   useEffect(() => {
     dispatch(getProfessionalsOptionsRequest());
     dispatch(
