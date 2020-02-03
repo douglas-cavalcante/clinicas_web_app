@@ -156,6 +156,34 @@ export default function SchedulesList() {
     });
   }
 
+  function handleEnd(item) {
+    confirmAlert({
+      title: 'Finalização',
+      message: 'Confirma a finalização total dessa consulta ?',
+      buttons: [
+        {
+          label: 'Sim',
+          onClick: () =>
+            api
+              .put(`schedules/end/${item.id}`)
+              .then(() => {
+                toast.success('Finalizado com sucesso!');
+                dispatch(
+                  getSchedulesRequest({
+                    date: formik.values.currentDate,
+                  })
+                );
+              })
+              .catch(() => {}),
+        },
+        {
+          label: 'Não',
+          onClick: () => {},
+        },
+      ],
+    });
+  }
+
   function handleConfirmSchedule(item) {
     confirmAlert({
       title: 'Confirmação',
@@ -364,6 +392,14 @@ export default function SchedulesList() {
                       'Finalizado',
                     ]
                   : [],
+            },
+
+            {
+              text: 'Finalizar',
+              className: 'btn btn-sm btn-success',
+              onClick: handleEnd,
+              buttonText: 'Finalizar',
+              status: 'Autorizado',
             },
           ]}
         />
