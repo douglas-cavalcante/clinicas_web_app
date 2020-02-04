@@ -12,5 +12,5 @@ Show.propTypes = {
   /** Condição para renderizar o contéudo */
   display: PropTypes.bool.isRequired,
   /** Contéudo JSX que irá ser renderizado */
-  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+  children: PropTypes.any.isRequired,
 };

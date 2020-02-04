@@ -22,7 +22,9 @@ export default function DropdownButton({ buttonLabel, headerLabel, options }) {
       <DropdownMenu>
         <DropdownItem header>{headerLabel}</DropdownItem>
         {options.map(option => (
-          <DropdownItem onClick={option.onClick}>{option.label}</DropdownItem>
+          <DropdownItem key={option.label} onClick={option.onClick}>
+            {option.label}
+          </DropdownItem>
         ))}
       </DropdownMenu>
     </ButtonDropdown>

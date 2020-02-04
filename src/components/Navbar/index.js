@@ -282,6 +282,15 @@ export default function Navbar() {
                       Pacientes
                     </Link>
                   </li>
+                  <li>
+                    <Link
+                      to="/relatorios/aniversariantes"
+                      className="dropdown-item"
+                      onClick={() => setShowDropdownTwo(false)}
+                    >
+                      Aniversariantes
+                    </Link>
+                  </li>
                 </ul>
               </li>
             </Show>
@@ -304,14 +313,13 @@ export default function Navbar() {
                   user.profile.professional &&
                   user.profile.professional.name}
               </h3>
-              <p className="text-sm">
-                <h3 className="dropdown-item-title text-light">
-                  {user &&
-                    user.profile.professional &&
-                    user.profile.professional.role &&
-                    user.profile.professional.role.name}
-                </h3>
-              </p>
+
+              <h3 className="text-sm dropdown-item-title text-light">
+                {user &&
+                  user.profile.professional &&
+                  user.profile.professional.role &&
+                  user.profile.professional.role.name}
+              </h3>
             </div>
           </div>
         </ul>
